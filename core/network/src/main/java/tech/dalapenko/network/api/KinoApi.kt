@@ -1,10 +1,12 @@
 package tech.dalapenko.network.api
 
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 import tech.dalapenko.network.dto.PremiereDto
 import tech.dalapenko.network.dto.ReleaseDto
 import tech.dalapenko.network.adapter.NetworkResponse
+import tech.dalapenko.network.dto.FilmDto
 import tech.dalapenko.network.dto.FilmSearchDto
 
 interface KinoApi {
@@ -27,4 +29,9 @@ interface KinoApi {
         @Query("keyword") keyword: String,
         @Query("page") page: Int
     ): NetworkResponse<FilmSearchDto>
+
+    @GET("/api/v2.2/films/{id}")
+    suspend fun getFilmById(
+        @Path("id") id: Int
+    ): NetworkResponse<FilmDto>
 }

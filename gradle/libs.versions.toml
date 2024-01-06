@@ -141,7 +141,7 @@ feature-releases-kapt = [
     "glide-compiler"
 ]
 
-network-implementation = [
+core-network-implementation = [
     "retrofit-core",
     "retrofit-converter-json",
     "serialization-json",
@@ -149,6 +149,6 @@ network-implementation = [
     "hilt-core"
 ]
 
-network-kapt = [
+core-network-kapt = [
     "hilt-compiler"
 ]

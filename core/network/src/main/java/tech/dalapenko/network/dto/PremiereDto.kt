@@ -5,6 +5,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class PremiereDto(
-    @SerialName("total") val total: Int?,
-    @SerialName("items") val items: List<PremiereItemDto>?
+    @SerialName("total") val total: Int? = null,
+    @SerialName("items") val items: List<PremiereItemDto>? = null
 )

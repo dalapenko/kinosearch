@@ -5,18 +5,18 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class DigitalReleaseItemDto(
-    @SerialName("filmId") val id: Int?,
-    @SerialName("nameRu") val nameRu: String?,
-    @SerialName("nameEn") val nameEn: String?,
-    @SerialName("year") val year: Int?,
-    @SerialName("posterUrl") val posterUrl: String?,
-    @SerialName("posterUrlPreview") val posterUrlPreview: String?,
-    @SerialName("countries") val countries: List<CountryDto>?,
-    @SerialName("genres") val genres: List<GenreDto>?,
-    @SerialName("rating") val rating: Float?,
-    @SerialName("ratingVoteCount") val ratingVoteCount: Int?,
-    @SerialName("expectationsRating") val expectationsRating: Float?,
-    @SerialName("expectationsRatingVoteCount") val expectationsRatingVoteCount: Int?,
-    @SerialName("duration") val duration: Int?,
-    @SerialName("releaseDate") val releaseDate: String?,
+    @SerialName("filmId") val id: Int? = null,
+    @SerialName("nameRu") val nameRu: String? = null,
+    @SerialName("nameEn") val nameEn: String? = null,
+    @SerialName("year") val year: Int? = null,
+    @SerialName("posterUrl") val posterUrl: String? = null,
+    @SerialName("posterUrlPreview") val posterUrlPreview: String? = null,
+    @SerialName("countries") val countries: List<CountryDto>? = null,
+    @SerialName("genres") val genres: List<GenreDto>? = null,
+    @SerialName("rating") val rating: Float? = null,
+    @SerialName("ratingVoteCount") val ratingVoteCount: Int? = null,
+    @SerialName("expectationsRating") val expectationsRating: Float? = null,
+    @SerialName("expectationsRatingVoteCount") val expectationsRatingVoteCount: Int? = null,
+    @SerialName("duration") val duration: Int? = null,
+    @SerialName("releaseDate") val releaseDate: String? = null
 )

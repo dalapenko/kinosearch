@@ -45,8 +45,8 @@ android {
 
 dependencies {
 
-    implementation(libs.bundles.network.implementation)
-    kapt(libs.bundles.network.kapt)
+    implementation(libs.bundles.core.network.implementation)
+    kapt(libs.bundles.core.network.kapt)
 }
 
 fun getPropertyValue(filename: String, propName: String): String {

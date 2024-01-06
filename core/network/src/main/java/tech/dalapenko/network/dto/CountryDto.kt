@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CountryDto(
-    @SerialName("country") val country: String?
+    @SerialName("country") val country: String? = null
 )

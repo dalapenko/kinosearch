@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class GenreDto(
-    @SerialName("genre") val genre: String?
+    @SerialName("genre") val genre: String? = null
 )
