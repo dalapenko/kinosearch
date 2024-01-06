@@ -1,11 +1,10 @@
 package tech.dalapenko.releases.model.repository
 
 import android.content.res.Resources.NotFoundException
-import tech.dalapenko.network.api.KinoApi
 import tech.dalapenko.network.adapter.NetworkResponse
 import tech.dalapenko.network.adapter.mapOnSuccess
-import tech.dalapenko.network.adapter.onError
 import tech.dalapenko.network.adapter.onSuccess
+import tech.dalapenko.network.api.KinoApi
 import tech.dalapenko.releases.model.entity.Release
 import javax.inject.Inject
 

@@ -1,8 +1,8 @@
 package tech.dalapenko.premieres.model.repository
 
-import tech.dalapenko.network.api.KinoApi
 import tech.dalapenko.network.adapter.NetworkResponse
 import tech.dalapenko.network.adapter.mapOnSuccess
+import tech.dalapenko.network.api.KinoApi
 import tech.dalapenko.premieres.model.entity.Premiere
 import javax.inject.Inject
 

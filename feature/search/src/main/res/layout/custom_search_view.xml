@@ -16,7 +16,7 @@
         app:iconTint="?android:attr/colorForeground"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/query"
-        app:layout_constraintBottom_toBottomOf="@id/query"/>
+        app:layout_constraintBottom_toBottomOf="@id/query" />
 
     <com.google.android.material.button.MaterialButton
         style="@style/Widget.Material3.Button.IconButton"
@@ -29,7 +29,7 @@
         app:iconTint="?android:attr/colorForeground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/query"
-        app:layout_constraintBottom_toBottomOf="@id/query"/>
+        app:layout_constraintBottom_toBottomOf="@id/query" />
 
     <EditText
         android:id="@+id/query"
@@ -47,7 +47,7 @@
         app:layout_constraintEnd_toStartOf="@id/clear_button"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:ignore="LabelFor"/>
+        tools:ignore="LabelFor" />
 
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
@@ -55,6 +55,6 @@
         app:dividerColor="?android:attr/colorForeground"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

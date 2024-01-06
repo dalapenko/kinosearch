@@ -2,24 +2,9 @@ package tech.dalapenko.search.view
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.KeyEvent
 import android.view.LayoutInflater
-import android.view.View
-import android.view.inputmethod.EditorInfo
-import android.widget.EditText
 import android.widget.RelativeLayout
-import android.widget.SearchView.OnQueryTextListener
-import android.widget.TextView
-import android.widget.TextView.OnEditorActionListener
-import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doOnTextChanged
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import tech.dalapenko.search.databinding.CustomSearchViewBinding
 
 class CustomSearchView @JvmOverloads constructor(
@@ -51,16 +36,6 @@ class CustomSearchView @JvmOverloads constructor(
             onQueryTextChangeListener.onTextChange(text)
         }
     }
-
-//    fun getQueryTextChangeStateFlow(): StateFlow<CharSequence?> {
-//        val query: MutableStateFlow<CharSequence?> = MutableStateFlow(null)
-//
-//        binding.query.doOnTextChanged { text, _, _, _ ->
-//            query.value = text
-//        }
-//
-//        return query
-//    }
 
     fun interface OnQueryTextChangeListener {
 

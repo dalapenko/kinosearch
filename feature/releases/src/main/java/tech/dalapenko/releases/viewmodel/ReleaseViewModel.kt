@@ -23,7 +23,8 @@ class ReleaseViewModel @Inject constructor(
     private val releaseRepository: ReleaseRepository
 ) : ViewModel() {
 
-    private val mutableContentStateFlow: MutableStateFlow<State<List<ReleaseListItem>>> = MutableStateFlow(State.Loading)
+    private val mutableContentStateFlow: MutableStateFlow<State<List<ReleaseListItem>>> =
+        MutableStateFlow(State.Loading)
     val contentStateFlow = mutableContentStateFlow.asStateFlow()
 
     private val dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")

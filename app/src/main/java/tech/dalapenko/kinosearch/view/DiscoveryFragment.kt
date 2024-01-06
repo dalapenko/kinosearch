@@ -49,7 +49,6 @@ class DiscoveryFragment : Fragment(R.layout.discovery_fragment) {
         binding.searchBar.setOnClickListener {
             findNavController().navigate(R.id.action_open_search)
         }
-//        binding.searchView.setupWithSearchBar(binding.searchBar)
     }
 
     private class TabsViewAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {

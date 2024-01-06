@@ -13,7 +13,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_height="100dp">
-        <requestFocus/>
+
+        <requestFocus />
     </tech.dalapenko.search.view.CustomSearchView>
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
@@ -25,7 +26,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:visibility="visible"/>
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/error"

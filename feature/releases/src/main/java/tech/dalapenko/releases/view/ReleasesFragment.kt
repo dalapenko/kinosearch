@@ -39,7 +39,7 @@ class ReleasesFragment : Fragment(R.layout.releases) {
         }
         lifecycleScope.launch {
             viewModel.contentStateFlow.collect { state ->
-                when(state) {
+                when (state) {
                     is State.Success -> {
                         binding.loader.isVisible = false
                         binding.error.isVisible = false

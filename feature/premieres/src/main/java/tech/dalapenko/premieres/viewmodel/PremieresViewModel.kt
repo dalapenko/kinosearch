@@ -23,7 +23,8 @@ class PremieresViewModel @Inject constructor(
     private val premiereRepository: PremiereRepository
 ) : ViewModel() {
 
-    private val mutableContentStateFlow: MutableStateFlow<State<List<PremiereListItem>>> = MutableStateFlow(State.Loading)
+    private val mutableContentStateFlow: MutableStateFlow<State<List<PremiereListItem>>> =
+        MutableStateFlow(State.Loading)
     val contentStateFlow = mutableContentStateFlow.asStateFlow()
 
     private val dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")

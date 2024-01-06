@@ -19,7 +19,7 @@ class ReleaseRecyclerAdapter(
     class DateViewHolder(val item: ReleaseDateItemBinding) : RecyclerView.ViewHolder(item.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when(viewType) {
+        return when (viewType) {
             ReleaseListItem.DATE_VIEW_TYPE -> DateViewHolder(
                 ReleaseDateItemBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
@@ -43,7 +43,7 @@ class ReleaseRecyclerAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val data = recyclerItemList[position]
-        when(holder.itemViewType) {
+        when (holder.itemViewType) {
             ReleaseListItem.DATE_VIEW_TYPE -> {
                 val dateHolder = (holder as DateViewHolder).item
                 val dateData = (data as ReleaseListItem.DateItem).date

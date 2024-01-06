@@ -10,7 +10,6 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import tech.dalapenko.premieres.databinding.PremiereDateItemBinding
 import tech.dalapenko.premieres.databinding.PremiereItemBinding
 import tech.dalapenko.premieres.viewmodel.PremiereListItem
-import java.time.format.DateTimeFormatter
 
 class PremieresRecyclerAdapter(
     private val recyclerItemList: List<PremiereListItem>
@@ -20,7 +19,7 @@ class PremieresRecyclerAdapter(
     class DateViewHolder(val item: PremiereDateItemBinding) : RecyclerView.ViewHolder(item.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when(viewType) {
+        return when (viewType) {
             PremiereListItem.DATE_VIEW_TYPE -> DateViewHolder(
                 PremiereDateItemBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
@@ -44,7 +43,7 @@ class PremieresRecyclerAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val data = recyclerItemList[position]
-        when(holder.itemViewType) {
+        when (holder.itemViewType) {
             PremiereListItem.DATE_VIEW_TYPE -> {
                 val dateHolder = (holder as DateViewHolder).item
                 val dateData = (data as PremiereListItem.DateItem).date
