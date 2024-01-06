@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name" translatable="false">KinoSearch</string>
+    <string name="cinema_releases">At the cinema</string>
+    <string name="digital_releases">Digital releases</string>
+</resources>

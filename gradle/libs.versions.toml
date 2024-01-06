@@ -1,0 +1,154 @@
+[versions]
+# plugins
+gradle = "8.2.0"
+kotlin = "1.9.22"
+ksp = "1.9.22-1.0.16"
+hilt = "2.50"
+
+# libs
+core-ktx = "1.12.0"
+appcompat = "1.6.1"
+constraintlayout = "2.1.4"
+viewmodel = "2.6.2"
+fragment = "1.6.2"
+material = "1.11.0"
+navigation = "2.7.6"
+room = "2.6.1"
+dagger = "2.50"
+retrofit = "2.9.0"
+retrofit-converterjson = "1.0.0"
+serialization-json = "1.6.2"
+okhttp = "4.12.0"
+glide = "4.16.0"
+junit = "4.13.2"
+junit-ext = "1.1.5"
+espresso = "3.5.1"
+hilt-androidx = "1.1.0"
+swiperefreshlayout = "1.1.0"
+
+[libraries]
+android-material = { module = "com.google.android.material:material", version.ref = "material" }
+
+androidx-core = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
+androidx-fragmentktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragment" }
+androidx-viewmodelktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "viewmodel" }
+androidx-navigationfragmentktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
+androidx-navigationuiktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+androidx-hilt-navigation = { module = "androidx.hilt:hilt-navigation-fragment", version.ref = "hilt-androidx" }
+androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
+retrofit-core = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-converter-json = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "retrofit-converterjson" }
+okhttp-logging = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
+glide-core = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
+dagger-core = { module = "com.google.dagger:dagger", version.ref = "dagger" }
+dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
+serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization-json" }
+hilt-core = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+
+# test
+junit = { module = "junit:junit", version.ref = "junit" }
+androidx-junit = { module = "androidx.test.ext:junit", version.ref = "junit-ext" }
+androidx-espresso = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "gradle" }
+android-library = { id = "com.android.library", version.ref = "gradle" }
+kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+[bundles]
+app-implementation = [
+    "android-material",
+    "androidx-core",
+    "androidx-appcompat",
+    "androidx-constraintlayout",
+    "androidx-navigationfragmentktx",
+    "androidx-navigationuiktx",
+    "androidx-room-runtime",
+    "androidx-room-ktx",
+    "hilt-core"
+]
+
+app-ksp = [
+    "androidx-room-compiler"
+]
+
+app-testImplementation = [
+    "junit"
+]
+
+app-androidTestImplementation = [
+    "androidx-junit",
+    "androidx-espresso"
+]
+
+app-kapt = [
+    "hilt-compiler"
+]
+
+feature-premieres-implementation = [
+    "android-material",
+    "androidx-core",
+    "androidx-appcompat",
+    "androidx-fragmentktx",
+    "hilt-core",
+    "androidx-swiperefreshlayout",
+    "glide-core"
+]
+
+feature-premieres-kapt = [
+    "hilt-compiler",
+    "glide-compiler"
+]
+
+feature-search-implementation = [
+    "android-material",
+    "androidx-core",
+    "androidx-appcompat",
+    "androidx-fragmentktx",
+    "androidx-navigationfragmentktx",
+    "hilt-core",
+    "glide-core"
+]
+
+feature-search-kapt = [
+    "hilt-compiler",
+    "glide-compiler"
+]
+
+feature-releases-implementation = [
+    "android-material",
+    "androidx-core",
+    "androidx-appcompat",
+    "androidx-fragmentktx",
+    "androidx-swiperefreshlayout",
+    "hilt-core",
+    "glide-core"
+]
+
+feature-releases-kapt = [
+    "hilt-compiler",
+    "glide-compiler"
+]
+
+network-implementation = [
+    "retrofit-core",
+    "retrofit-converter-json",
+    "serialization-json",
+    "okhttp-logging",
+    "hilt-core"
+]
+
+network-kapt = [
+    "hilt-compiler"
+]
