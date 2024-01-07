@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/filmdetails_nav_graph"
+    app:startDestination="@id/filmDetailsFragment">
+
+    <fragment
+        android:id="@+id/filmDetailsFragment"
+        android:name="tech.dalapenko.filmdetails.view.FilmDetailsFragment"
+        android:label="SearchFragment"
+        tools:layout="@layout/film_details">
+
+        <argument android:name="filmId" app:argType="integer" />
+        <deepLink app:uri="kinosearch://filmdetails/{filmId}"/>
+    </fragment>
+
+</navigation>

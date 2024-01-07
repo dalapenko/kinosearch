@@ -9,7 +9,7 @@ data class SearchResult(
     val ruName: String?,
     val originName: String?,
     val type: String?,
-    val year: Int?,
+    val year: String?,
     val description: String?,
     val duration: String?,
     val countryList: List<String>,

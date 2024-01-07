@@ -1,23 +1,21 @@
+@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin)
     alias(libs.plugins.kapt)
-    alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.safeargs)
 }
 
 android {
-    namespace = "tech.dalapenko.kinosearch"
+    namespace = "tech.dalapenko.filmdetails"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "tech.dalapenko.kinosearch"
         minSdk = 27
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildFeatures {
@@ -43,14 +41,7 @@ android {
 }
 
 dependencies {
-
-    implementation(project(":feature:premieres"))
-    implementation(project(":feature:releases"))
-    implementation(project(":feature:search"))
-    implementation(project(":feature:filmdetails"))
-    implementation(libs.bundles.app.implementation)
-    ksp(libs.bundles.app.ksp)
-    kapt(libs.bundles.app.kapt)
-    testImplementation(libs.bundles.app.testImplementation)
-    androidTestImplementation(libs.bundles.app.androidTestImplementation)
+    implementation(project(":core:network"))
+    implementation(libs.bundles.feature.filmdetails.implementation)
+    kapt(libs.bundles.feature.filmdetails.kapt)
 }

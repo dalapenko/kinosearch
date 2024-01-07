@@ -1,6 +1,7 @@
 package tech.dalapenko.search.view
 
 import android.view.LayoutInflater
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +12,8 @@ import tech.dalapenko.search.databinding.SearchItemBinding
 import tech.dalapenko.search.model.entity.SearchResult
 
 class SearchRecyclerAdapter(
-    private val recyclerItemList: List<SearchResult>
+    private val recyclerItemList: List<SearchResult>,
+    private val onItemClickListener: OnSearchResultClicked
 ) : RecyclerView.Adapter<SearchRecyclerAdapter.SearchItemViewHolder>() {
 
     class SearchItemViewHolder(val item: SearchItemBinding) : RecyclerView.ViewHolder(item.root)
@@ -35,7 +37,13 @@ class SearchRecyclerAdapter(
             cover.loadImage(data.posterUrlPreview)
             ruTitle.text = data.ruName
             originTitle.text = data.originName
+
+            root.setOnClickListener { onItemClickListener.onItemClicked(data) }
         }
+    }
+
+    fun interface OnSearchResultClicked {
+        fun onItemClicked(item: SearchResult)
     }
 }
 

@@ -4,10 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavDeepLinkRequest
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -43,7 +47,23 @@ class PremieresFragment : Fragment(R.layout.premieres) {
                         binding.loader.isVisible = false
                         binding.error.isVisible = false
                         binding.content.isVisible = true
-                        binding.content.adapter = PremieresRecyclerAdapter(state.data)
+                        binding.content.adapter = PremieresRecyclerAdapter(state.data) {
+                            val deeplink = NavDeepLinkRequest.Builder
+                                .fromUri("kinosearch://filmdetails/${it.id}".toUri())
+                                .build()
+
+                            val navOptions = NavOptions.Builder()
+                                .setPopUpTo(
+                                    R.id.refresh, true
+                                )
+                                .setEnterAnim(R.anim.slide_in_right)
+                                .setExitAnim(R.anim.slide_out_left)
+                                .setPopEnterAnim(R.anim.slide_in_left)
+                                .setPopExitAnim(R.anim.slide_out_right)
+                                .build()
+
+                            findNavController().navigate(deeplink, navOptions)
+                        }
                     }
                     is State.Loading -> {
                         binding.loader.isVisible = true

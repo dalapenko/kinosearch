@@ -9,10 +9,12 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import tech.dalapenko.releases.databinding.ReleaseDateItemBinding
 import tech.dalapenko.releases.databinding.ReleaseItemBinding
+import tech.dalapenko.releases.model.entity.Release
 import tech.dalapenko.releases.viewmodel.ReleaseListItem
 
 class ReleaseRecyclerAdapter(
-    private val recyclerItemList: List<ReleaseListItem>
+    private val recyclerItemList: List<ReleaseListItem>,
+    private val onItemClickListener: OnReleaseItemClicked
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     class PremiereViewHolder(val item: ReleaseItemBinding) : RecyclerView.ViewHolder(item.root)
@@ -60,9 +62,15 @@ class ReleaseRecyclerAdapter(
                     cover.loadImage(premierData.posterUrlPreview)
                     ruTitle.text = premierData.ruName
                     originTitle.text = premierData.originName
+
+                    root.setOnClickListener { onItemClickListener.onItemClicked(premierData) }
                 }
             }
         }
+    }
+
+    fun interface OnReleaseItemClicked {
+        fun onItemClicked(item: Release)
     }
 }
 

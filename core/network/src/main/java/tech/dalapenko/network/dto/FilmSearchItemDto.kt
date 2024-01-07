@@ -9,7 +9,7 @@ data class FilmSearchItemDto(
     @SerialName("nameRu") val nameRu: String? = null,
     @SerialName("nameEn") val nameEn: String? = null,
     @SerialName("type") val type: String? = null,
-    @SerialName("year") val year: Int? = null,
+    @SerialName("year") val year: String? = null,
     @SerialName("description") val description: String? = null,
     @SerialName("filmLength") val filmLength: String? = null,
     @SerialName("countries") val countries: List<CountryDto>? = null,

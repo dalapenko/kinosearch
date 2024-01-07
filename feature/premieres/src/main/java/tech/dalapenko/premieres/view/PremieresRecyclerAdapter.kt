@@ -9,10 +9,12 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import tech.dalapenko.premieres.databinding.PremiereDateItemBinding
 import tech.dalapenko.premieres.databinding.PremiereItemBinding
+import tech.dalapenko.premieres.model.entity.Premiere
 import tech.dalapenko.premieres.viewmodel.PremiereListItem
 
 class PremieresRecyclerAdapter(
-    private val recyclerItemList: List<PremiereListItem>
+    private val recyclerItemList: List<PremiereListItem>,
+    private val onItemClickListener: OnPremiereItemClicked
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     class PremiereViewHolder(val item: PremiereItemBinding) : RecyclerView.ViewHolder(item.root)
@@ -60,9 +62,15 @@ class PremieresRecyclerAdapter(
                     cover.loadImage(premierData.posterUrlPreview)
                     ruTitle.text = premierData.ruName
                     originTitle.text = premierData.originName
+
+                    root.setOnClickListener { onItemClickListener.onItemClicked(premierData) }
                 }
             }
         }
+    }
+
+    fun interface OnPremiereItemClicked {
+        fun onItemClicked(item: Premiere)
     }
 }
 

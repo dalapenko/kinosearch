@@ -6,12 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavDeepLinkRequest
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -54,7 +57,12 @@ class SearchFragment : Fragment(R.layout.search) {
                             binding.loader.isVisible = false
                             binding.error.isVisible = false
                             binding.content.isVisible = true
-                            binding.content.adapter = SearchRecyclerAdapter(state.data)
+                            binding.content.adapter = SearchRecyclerAdapter(state.data) {
+                                val deeplink = NavDeepLinkRequest.Builder
+                                    .fromUri("kinosearch://filmdetails/${it.id}".toUri())
+                                    .build()
+                                findNavController().navigate(deeplink)
+                            }
                         }
                         is State.Loading -> {
                             binding.loader.isVisible = true
