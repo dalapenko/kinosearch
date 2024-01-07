@@ -2,6 +2,7 @@ package tech.dalapenko.data.releases.di
 
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import tech.dalapenko.data.core.mapper.DboMapper
@@ -20,9 +21,18 @@ import tech.dalapenko.network.dto.DigitalReleaseItemDto
 
 @Module(includes = [InternalReleasesDataModule::class])
 @InstallIn(ViewModelComponent::class)
-interface ReleasesDataModule {
-    @Binds
-    fun bindReleaseRepository(releaseRepository: ReleaseRepositoryImpl): ReleaseRepository
+object ReleasesDataModule {
+
+    @Provides
+    fun provideReleaseRepository(
+        remoteDataSource: RemoteDataSource,
+        localDataSource: LocalDataSource
+    ): ReleaseRepository {
+        return ReleaseRepositoryImpl(
+            remoteDataSource,
+            localDataSource
+        )
+    }
 }
 
 @Module

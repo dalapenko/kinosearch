@@ -162,6 +162,14 @@ feature-releases-kapt = [
     "glide-compiler"
 ]
 
+data-search-implementation = [
+    "hilt-core"
+]
+
+data-search-kapt = [
+    "hilt-compiler"
+]
+
 data-releases-implementation = [
     "hilt-core"
 ]

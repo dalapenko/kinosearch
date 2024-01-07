@@ -20,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import tech.dalapenko.search.R
 import tech.dalapenko.search.databinding.SearchBinding
-import tech.dalapenko.search.model.State
+import tech.dalapenko.search.viewmodel.UiState
 import tech.dalapenko.search.viewmodel.SearchViewModel
 
 @AndroidEntryPoint
@@ -53,7 +53,7 @@ class SearchFragment : Fragment(R.layout.search) {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.viewStateFlow.collect { state ->
                     when (state) {
-                        is State.Success -> {
+                        is UiState.Success -> {
                             binding.loader.isVisible = false
                             binding.error.isVisible = false
                             binding.content.isVisible = true
@@ -64,12 +64,12 @@ class SearchFragment : Fragment(R.layout.search) {
                                 findNavController().navigate(deeplink)
                             }
                         }
-                        is State.Loading -> {
+                        is UiState.Loading -> {
                             binding.loader.isVisible = true
                             binding.content.isVisible = false
                             binding.error.isVisible = false
                         }
-                        is State.Error -> {
+                        is UiState.Error -> {
                             binding.loader.isVisible = false
                             binding.content.isVisible = false
                             binding.error.isVisible = true

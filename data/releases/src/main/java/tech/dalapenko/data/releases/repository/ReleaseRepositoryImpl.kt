@@ -8,7 +8,7 @@ import tech.dalapenko.data.releases.model.Release
 import tech.dalapenko.network.adapter.NetworkResponse
 import javax.inject.Inject
 
-class ReleaseRepositoryImpl @Inject constructor(
+internal class ReleaseRepositoryImpl(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
 ) : ReleaseRepository {

@@ -7,18 +7,16 @@ plugins {
 }
 
 android {
-    namespace = "tech.dalapenko.search"
+    namespace = "tech.dalapenko.data.search"
     compileSdk = 34
+
+    buildFeatures.buildConfig = true
 
     defaultConfig {
         minSdk = 27
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-    }
-
-    buildFeatures {
-        viewBinding = true
     }
 
     buildTypes {
@@ -40,7 +38,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":data:search"))
-    implementation(libs.bundles.feature.search.implementation)
-    kapt(libs.bundles.feature.search.kapt)
+    implementation(project(":data:core"))
+    implementation(libs.bundles.data.search.implementation)
+    kapt(libs.bundles.data.search.kapt)
 }

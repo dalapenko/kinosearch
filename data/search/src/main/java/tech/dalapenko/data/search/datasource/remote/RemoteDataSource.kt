@@ -1,9 +1,9 @@
-package tech.dalapenko.search.model.repository
+package tech.dalapenko.data.search.datasource.remote
 
+import tech.dalapenko.data.search.model.SearchResult
 import tech.dalapenko.network.adapter.NetworkResponse
-import tech.dalapenko.search.model.entity.SearchResult
 
-interface SearchRepository {
+interface RemoteDataSource {
 
     suspend fun getSearchResult(keyword: String): NetworkResponse<List<SearchResult>>
 }
