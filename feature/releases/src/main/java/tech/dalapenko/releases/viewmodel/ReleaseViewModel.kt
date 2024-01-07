@@ -3,15 +3,10 @@ package tech.dalapenko.releases.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import tech.dalapenko.network.adapter.onError
-import tech.dalapenko.network.adapter.onException
-import tech.dalapenko.network.adapter.onSuccess
-import tech.dalapenko.releases.model.State
+import tech.dalapenko.releases.model.DataState
 import tech.dalapenko.releases.model.entity.Release
 import tech.dalapenko.releases.model.repository.ReleaseRepository
 import java.time.LocalDate
@@ -23,8 +18,8 @@ class ReleaseViewModel @Inject constructor(
     private val releaseRepository: ReleaseRepository
 ) : ViewModel() {
 
-    private val mutableContentStateFlow: MutableStateFlow<State<List<ReleaseListItem>>> =
-        MutableStateFlow(State.Loading)
+    private val mutableContentStateFlow: MutableStateFlow<UiState<List<ReleaseListItem>>> =
+        MutableStateFlow(UiState.Loading)
     val contentStateFlow = mutableContentStateFlow.asStateFlow()
 
     private val dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
@@ -34,22 +29,22 @@ class ReleaseViewModel @Inject constructor(
 
     fun fetchReleasesList(month: String, year: Int) {
         viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                mutableContentStateFlow.emit(State.Loading)
-                val releaseList = releaseRepository.getReleaseMovieList(month, year)
+            mutableContentStateFlow.emit(UiState.Loading)
+            releaseRepository.getReleasesList(month, year)
+                .collect { data ->
+                    if (data.data.isEmpty()) {
+                        mutableContentStateFlow.emit(UiState.Empty)
+                        return@collect
+                    }
 
-                releaseList
-                    .onSuccess {
-                        val groupedReleaseList = groupReleaseListByDate(it)
-                        mutableContentStateFlow.emit(State.Success(groupedReleaseList))
+                    val groupedReleaseList = groupReleaseListByDate(data.data)
+                    val uiState = if (data is DataState.Current) {
+                        UiState.CurrentData(groupedReleaseList)
+                    } else {
+                        UiState.CachedData(groupedReleaseList)
                     }
-                    .onError { _, _ ->
-                        mutableContentStateFlow.emit(State.Error)
-                    }
-                    .onException {
-                        mutableContentStateFlow.emit(State.Error)
-                    }
-            }
+                    mutableContentStateFlow.emit(uiState)
+                }
         }
     }
 
@@ -66,6 +61,7 @@ class ReleaseViewModel @Inject constructor(
                 val formattedDate = date?.format(dateTimeFormatter)
                 recyclerItemList.add(ReleaseListItem.DateItem(formattedDate))
                 releases
+                    ?.sortedBy(Release::id)
                     ?.map(ReleaseListItem::ReleaseItem)
                     ?.let(recyclerItemList::addAll)
             }

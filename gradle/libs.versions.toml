@@ -20,6 +20,7 @@ retrofit-converterjson = "1.0.0"
 serialization-json = "1.6.2"
 okhttp = "4.12.0"
 glide = "4.16.0"
+glide-crop = "4.3.0"
 junit = "4.13.2"
 junit-ext = "1.1.5"
 espresso = "3.5.1"
@@ -46,6 +47,7 @@ retrofit-converter-json = { module = "com.jakewharton.retrofit:retrofit2-kotlinx
 okhttp-logging = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
 glide-core = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
+glide-crop = { module = "jp.wasabeef:glide-transformations", version.ref = "glide-crop" }
 dagger-core = { module = "com.google.dagger:dagger", version.ref = "dagger" }
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
 serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization-json" }
@@ -65,6 +67,7 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigation" }
 
 [bundles]
 app-implementation = [
@@ -101,6 +104,7 @@ feature-premieres-implementation = [
     "androidx-core",
     "androidx-appcompat",
     "androidx-fragmentktx",
+    "androidx-navigationfragmentktx",
     "hilt-core",
     "androidx-swiperefreshlayout",
     "glide-core"
@@ -126,12 +130,29 @@ feature-search-kapt = [
     "glide-compiler"
 ]
 
+feature-filmdetails-implementation = [
+    "android-material",
+    "androidx-core",
+    "androidx-appcompat",
+    "androidx-fragmentktx",
+    "androidx-navigationfragmentktx",
+    "hilt-core",
+    "glide-core",
+    "glide-crop"
+]
+
+feature-filmdetails-kapt = [
+    "hilt-compiler",
+    "glide-compiler"
+]
+
 feature-releases-implementation = [
     "android-material",
     "androidx-core",
     "androidx-appcompat",
     "androidx-fragmentktx",
     "androidx-swiperefreshlayout",
+    "androidx-navigationfragmentktx",
     "hilt-core",
     "glide-core"
 ]
@@ -150,5 +171,17 @@ core-network-implementation = [
 ]
 
 core-network-kapt = [
+    "hilt-compiler"
+]
+
+core-database-implementation = [
+    "androidx-room-ktx",
+    "androidx-room-runtime",
+    "serialization-json",
+    "hilt-core"
+]
+
+core-database-kapt = [
+    "androidx-room-compiler",
     "hilt-compiler"
 ]
