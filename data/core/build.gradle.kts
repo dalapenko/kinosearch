@@ -2,23 +2,19 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin)
-    alias(libs.plugins.kapt)
-    alias(libs.plugins.hilt)
 }
 
 android {
-    namespace = "tech.dalapenko.releases"
+    namespace = "tech.dalapenko.data.core"
     compileSdk = 34
+
+    buildFeatures.buildConfig = true
 
     defaultConfig {
         minSdk = 27
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-    }
-
-    buildFeatures {
-        viewBinding = true
     }
 
     buildTypes {
@@ -40,7 +36,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":data:releases"))
-    implementation(libs.bundles.feature.releases.implementation)
-    kapt(libs.bundles.feature.releases.kapt)
+    api(project(":core:network"))
+    api(project(":core:database"))
 }

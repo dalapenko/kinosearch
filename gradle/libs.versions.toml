@@ -162,6 +162,14 @@ feature-releases-kapt = [
     "glide-compiler"
 ]
 
+data-releases-implementation = [
+    "hilt-core"
+]
+
+data-releases-kapt = [
+    "hilt-compiler"
+]
+
 core-network-implementation = [
     "retrofit-core",
     "retrofit-converter-json",

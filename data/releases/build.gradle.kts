@@ -7,18 +7,16 @@ plugins {
 }
 
 android {
-    namespace = "tech.dalapenko.releases"
+    namespace = "tech.dalapenko.data.releases"
     compileSdk = 34
+
+    buildFeatures.buildConfig = true
 
     defaultConfig {
         minSdk = 27
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-    }
-
-    buildFeatures {
-        viewBinding = true
     }
 
     buildTypes {
@@ -40,7 +38,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":data:releases"))
-    implementation(libs.bundles.feature.releases.implementation)
-    kapt(libs.bundles.feature.releases.kapt)
+    implementation(project(":data:core"))
+    implementation(libs.bundles.data.releases.implementation)
+    kapt(libs.bundles.data.releases.kapt)
 }
