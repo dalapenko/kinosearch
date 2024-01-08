@@ -2,15 +2,17 @@ package tech.dalapenko.feature.search.view
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import tech.dalapenko.core.basepresentation.utils.loadImage
 import tech.dalapenko.data.search.model.SearchResult
 import tech.dalapenko.feature.search.databinding.SearchItemBinding
 
 class SearchRecyclerAdapter(
-    private val recyclerItemList: List<SearchResult>,
     private val onItemClickListener: OnSearchResultClicked
 ) : RecyclerView.Adapter<SearchRecyclerAdapter.SearchItemViewHolder>() {
+
+    private val recyclerItemList: MutableList<SearchResult> = mutableListOf()
 
     class SearchItemViewHolder(val item: SearchItemBinding) : RecyclerView.ViewHolder(item.root)
 
@@ -34,8 +36,18 @@ class SearchRecyclerAdapter(
             ruTitle.text = data.ruName
             originTitle.text = data.originName
 
-            root.setOnClickListener { onItemClickListener.onItemClicked(data) }
+            root.setOnClickListener {
+                onItemClickListener?.onItemClicked(data)
+            }
         }
+    }
+
+    fun setData(searchResultList: List<SearchResult>) {
+        val diffCallback = SearchResultDiffUtil(recyclerItemList, searchResultList)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        recyclerItemList.clear()
+        recyclerItemList.addAll(searchResultList)
+        diffResult.dispatchUpdatesTo(this)
     }
 
     fun interface OnSearchResultClicked {

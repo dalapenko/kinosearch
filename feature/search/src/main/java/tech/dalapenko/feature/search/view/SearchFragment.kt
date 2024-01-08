@@ -6,18 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import tech.dalapenko.core.basepresentation.navigate.Animation
+import tech.dalapenko.core.basepresentation.navigate.Deeplink
+import tech.dalapenko.data.search.model.SearchResult
 import tech.dalapenko.feature.search.R
 import tech.dalapenko.feature.search.databinding.SearchBinding
 import tech.dalapenko.feature.search.viewmodel.UiState
@@ -31,49 +33,29 @@ class SearchFragment : Fragment(R.layout.search) {
 
     private val viewModel: SearchViewModel by viewModels()
 
+    private val searchResultAdapter = SearchRecyclerAdapter {
+        findNavController().navigate(
+            request = Deeplink.openFilmDetails(it.id),
+            navOptions = Animation.slideRight(R.id.search_root)
+        )
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = SearchBinding.inflate(inflater, container, false)
-        with(binding.searchView) {
-            setOnQueryTextFocusChangeListener { view, hasFocus ->
-                if (hasFocus) showInputMethod(view.findFocus())
-            }
-            setOnBackButtonPressClickListener {
-                parentFragmentManager.popBackStack()
-            }
-            setOnQueryChangeListener {
-                viewModel.updateQuery(it)
-            }
+        with(binding) {
+            searchViewBiding(searchView)
+            contentViewBinding(content)
         }
-
-        binding.content.layoutManager = LinearLayoutManager(context)
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.viewStateFlow.collect { state ->
                     when (state) {
-                        is UiState.Success -> {
-                            binding.loader.isVisible = false
-                            binding.error.isVisible = false
-                            binding.content.isVisible = true
-                            binding.content.adapter = SearchRecyclerAdapter(state.data) {
-                                val deeplink = NavDeepLinkRequest.Builder
-                                    .fromUri("kinosearch://filmdetails/${it.id}".toUri())
-                                    .build()
-                                findNavController().navigate(deeplink)
-                            }
-                        }
-                        is UiState.Loading -> {
-                            binding.loader.isVisible = true
-                            binding.content.isVisible = false
-                            binding.error.isVisible = false
-                        }
-                        is UiState.Error -> {
-                            binding.loader.isVisible = false
-                            binding.content.isVisible = false
-                            binding.error.isVisible = true
-                        }
+                        is UiState.Ready -> onDataReady(state.data)
+                        is UiState.Loading -> setLoaderVisible()
+                        is UiState.Error -> setErrorVisible()
                     }
                 }
             }
@@ -85,6 +67,50 @@ class SearchFragment : Fragment(R.layout.search) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun onDataReady(searchResultList: List<SearchResult>) {
+        setContentVisible()
+        searchResultAdapter.setData(searchResultList)
+    }
+
+    private fun searchViewBiding(searchView: CustomSearchView) {
+        with(searchView) {
+            setOnQueryTextFocusChangeListener { view, hasFocus ->
+                if (hasFocus) showInputMethod(view.findFocus())
+            }
+            setOnBackButtonPressClickListener {
+                parentFragmentManager.popBackStack()
+            }
+            setOnQueryChangeListener {
+                viewModel.updateQuery(it)
+            }
+        }
+    }
+
+    private fun contentViewBinding(contentView: RecyclerView) {
+        with(contentView) {
+            layoutManager = LinearLayoutManager(context)
+            adapter = searchResultAdapter
+        }
+    }
+
+    private fun setContentVisible() = with(binding) {
+        loader.isVisible = false
+        error.isVisible = false
+        content.isVisible = true
+    }
+
+    private fun setLoaderVisible() = with(binding) {
+        loader.isVisible = true
+        content.isVisible = false
+        error.isVisible = false
+    }
+
+    private fun setErrorVisible() = with(binding) {
+        loader.isVisible = false
+        content.isVisible = false
+        error.isVisible = true
     }
 
     private fun showInputMethod(view: View) {

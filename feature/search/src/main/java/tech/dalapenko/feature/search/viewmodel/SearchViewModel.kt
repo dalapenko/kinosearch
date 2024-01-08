@@ -25,7 +25,7 @@ class SearchViewModel @Inject constructor(
 
     private var queryStateFlow: MutableStateFlow<String?> = MutableStateFlow(null)
     private val mutableViewStateFlow: MutableStateFlow<UiState<List<SearchResult>>> =
-        MutableStateFlow(UiState.Success(emptyList()))
+        MutableStateFlow(UiState.Ready(emptyList()))
     val viewStateFlow = mutableViewStateFlow.asStateFlow()
 
     init {
@@ -34,7 +34,7 @@ class SearchViewModel @Inject constructor(
             .filterNotNull()
             .filter {
                 if (it.isBlank() || it.isEmpty()) {
-                    mutableViewStateFlow.emit(UiState.Success(emptyList()))
+                    mutableViewStateFlow.emit(UiState.Ready(emptyList()))
                     false
                 } else {
                     true
@@ -46,7 +46,7 @@ class SearchViewModel @Inject constructor(
                 searchRepository.getSearchResult(it)
                     .collect { data ->
                         val uiState = when(data) {
-                            is DataState.Current -> UiState.Success(data.data)
+                            is DataState.Current -> UiState.Ready(data.data)
                             is DataState.Loading -> UiState.Loading
                             is DataState.FetchError -> UiState.Error
                         }
