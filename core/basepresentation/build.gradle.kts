@@ -2,6 +2,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin)
+    alias(libs.plugins.kapt)
 }
 
 android {
@@ -38,4 +39,5 @@ android {
 dependencies {
 
     implementation(libs.bundles.core.basepresentation.implementation)
+    kapt(libs.bundles.core.basepresentation.implementation)
 }

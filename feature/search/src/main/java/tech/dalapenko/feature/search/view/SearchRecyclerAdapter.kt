@@ -2,11 +2,8 @@ package tech.dalapenko.feature.search.view
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import tech.dalapenko.core.basepresentation.utils.loadImage
 import tech.dalapenko.data.search.model.SearchResult
 import tech.dalapenko.feature.search.databinding.SearchItemBinding
 
@@ -44,13 +41,4 @@ class SearchRecyclerAdapter(
     fun interface OnSearchResultClicked {
         fun onItemClicked(item: SearchResult)
     }
-}
-
-private fun ImageView.loadImage(imageUrl: String?) {
-    if (imageUrl == null) return
-    Glide.with(context)
-        .load(imageUrl)
-        .transform(CenterCrop())
-        .transition(DrawableTransitionOptions.withCrossFade())
-        .into(this);
 }

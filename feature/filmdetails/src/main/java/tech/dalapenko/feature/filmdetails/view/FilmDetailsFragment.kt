@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -12,12 +11,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.FitCenter
-import com.bumptech.glide.request.RequestOptions
 import dagger.hilt.android.AndroidEntryPoint
-import jp.wasabeef.glide.transformations.CropTransformation
 import kotlinx.coroutines.launch
+import tech.dalapenko.core.basepresentation.utils.ImageTransform
+import tech.dalapenko.core.basepresentation.utils.loadImage
 import tech.dalapenko.data.filmdetails.model.Film
 import tech.dalapenko.feature.filmdetails.R
 import tech.dalapenko.feature.filmdetails.databinding.FilmDetailsBinding
@@ -70,8 +67,8 @@ class FilmDetailsFragment : Fragment(R.layout.film_details) {
 
     private fun bindingFilmDetailsContent(film: Film) {
         with(binding) {
-            (film.coverUrl ?: film.posterUrl)?.let(cover::loadImageCropTop)
-            film.logoUrl?.let(logo::loadImageFit)
+            (film.coverUrl ?: film.posterUrl)?.let { cover.loadImage(it, ImageTransform.CropTop()) }
+            film.logoUrl?.let { logo.loadImage(it, ImageTransform.FitCenter()) }
             film.ruName?.let(title::setText)
             film.description?.let(description::setText)
 
@@ -89,20 +86,4 @@ class FilmDetailsFragment : Fragment(R.layout.film_details) {
         error.isVisible = false
         loader.isVisible = true
     }
-}
-
-private fun ImageView.loadImageCropTop(imageUrl: String?) {
-    if (imageUrl == null) return
-    Glide.with(context)
-        .load(imageUrl)
-        .apply(RequestOptions.bitmapTransform(CropTransformation(width, height, CropTransformation.CropType.TOP)))
-        .into(this)
-}
-
-private fun ImageView.loadImageFit(imageUrl: String?) {
-    if (imageUrl == null) return
-    Glide.with(context)
-        .load(imageUrl)
-        .transform(FitCenter())
-        .into(this);
 }

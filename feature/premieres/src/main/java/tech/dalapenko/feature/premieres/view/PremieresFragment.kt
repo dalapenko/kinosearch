@@ -91,7 +91,7 @@ class PremieresFragment : Fragment(R.layout.premieres) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.fetchContentList("JANUARY", 2024)
+        fetchCurrentData()
     }
 
     override fun onDestroyView() {

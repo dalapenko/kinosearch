@@ -106,13 +106,11 @@ feature-premieres-implementation = [
     "androidx-fragmentktx",
     "androidx-navigationfragmentktx",
     "hilt-core",
-    "androidx-swiperefreshlayout",
-    "glide-core"
+    "androidx-swiperefreshlayout"
 ]
 
 feature-premieres-kapt = [
-    "hilt-compiler",
-    "glide-compiler"
+    "hilt-compiler"
 ]
 
 feature-search-implementation = [
@@ -136,14 +134,11 @@ feature-filmdetails-implementation = [
     "androidx-appcompat",
     "androidx-fragmentktx",
     "androidx-navigationfragmentktx",
-    "hilt-core",
-    "glide-core",
-    "glide-crop"
+    "hilt-core"
 ]
 
 feature-filmdetails-kapt = [
     "hilt-compiler",
-    "glide-compiler"
 ]
 
 feature-releases-implementation = [
@@ -154,12 +149,10 @@ feature-releases-implementation = [
     "androidx-swiperefreshlayout",
     "androidx-navigationfragmentktx",
     "hilt-core",
-    "glide-core"
 ]
 
 feature-releases-kapt = [
     "hilt-compiler",
-    "glide-compiler"
 ]
 
 data-search-implementation = [
@@ -225,5 +218,11 @@ core-basepresentation-implementation = [
     "androidx-appcompat",
     "androidx-fragmentktx",
     "androidx-navigationfragmentktx",
+    "glide-core",
+    "glide-crop"
+]
+
+core-basepresentation-kapt = [
+    "glide-compiler"
 ]
 

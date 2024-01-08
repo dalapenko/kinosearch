@@ -4,9 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import tech.dalapenko.core.basepresentation.utils.loadImage
 import tech.dalapenko.core.basepresentation.view.sectionrecycler.SectionRecyclerAdapter
 import tech.dalapenko.core.basepresentation.view.sectionrecycler.SectionRecyclerHeader
 import tech.dalapenko.core.basepresentation.view.sectionrecycler.SectionRecyclerItem
@@ -56,13 +54,4 @@ class ReleaseRecyclerAdapter(
             )
         )
     }
-}
-
-private fun ImageView.loadImage(imageUrl: String?) {
-    if (imageUrl == null) return
-    Glide.with(context)
-        .load(imageUrl)
-        .transform(CenterCrop())
-        .transition(DrawableTransitionOptions.withCrossFade())
-        .into(this);
 }

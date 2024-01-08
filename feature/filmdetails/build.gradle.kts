@@ -42,6 +42,7 @@ android {
 
 dependencies {
     implementation(project(":data:filmdetails"))
+    implementation(project(":core:basepresentation"))
     implementation(libs.bundles.feature.filmdetails.implementation)
     kapt(libs.bundles.feature.filmdetails.kapt)
 }
