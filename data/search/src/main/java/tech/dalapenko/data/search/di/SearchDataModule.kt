@@ -14,7 +14,7 @@ import tech.dalapenko.data.search.repository.SearchRepository
 import tech.dalapenko.data.search.repository.SearchRepositoryImpl
 import tech.dalapenko.network.dto.FilmSearchItemDto
 
-@Module(includes = [SearchReleasesDataModule::class])
+@Module(includes = [InternalSearchDataModule::class])
 @InstallIn(ViewModelComponent::class)
 object SearchDataModule {
 
@@ -28,7 +28,7 @@ object SearchDataModule {
 
 @Module
 @InstallIn(ViewModelComponent::class)
-internal interface SearchReleasesDataModule {
+internal interface InternalSearchDataModule {
 
     @Binds
     fun bindRemoteDataSource(remoteDataSource: RemoteDataSourceImpl): RemoteDataSource

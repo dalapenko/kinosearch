@@ -178,6 +178,14 @@ data-releases-kapt = [
     "hilt-compiler"
 ]
 
+data-filmdetails-implementation = [
+    "hilt-core"
+]
+
+data-filmdetails-kapt = [
+    "hilt-compiler"
+]
+
 core-network-implementation = [
     "retrofit-core",
     "retrofit-converter-json",

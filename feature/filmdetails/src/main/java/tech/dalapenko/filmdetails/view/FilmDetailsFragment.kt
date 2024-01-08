@@ -12,17 +12,16 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.FitCenter
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.glide.transformations.CropTransformation
 import kotlinx.coroutines.launch
+import tech.dalapenko.data.filmdetails.model.Film
 import tech.dalapenko.filmdetails.R
 import tech.dalapenko.filmdetails.databinding.FilmDetailsBinding
-import tech.dalapenko.filmdetails.model.entity.Film
 import tech.dalapenko.filmdetails.viewmodel.FilmDetailsViewModel
+import tech.dalapenko.filmdetails.viewmodel.UiState
 
 @AndroidEntryPoint
 class FilmDetailsFragment : Fragment(R.layout.film_details) {
@@ -42,11 +41,11 @@ class FilmDetailsFragment : Fragment(R.layout.film_details) {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.contentStateFlow.collect { state ->
                     when (state) {
-                        is State.Success -> {
+                        is UiState.Success -> {
                             bindingFilmDetailsContent(state.data)
                         }
-                        is State.Loading -> Unit
-                        is State.Error -> Unit
+                        is UiState.Loading -> Unit
+                        is UiState.Error -> Unit
                     }
                 }
             }

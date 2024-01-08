@@ -4,22 +4,19 @@ plugins {
     alias(libs.plugins.kotlin)
     alias(libs.plugins.kapt)
     alias(libs.plugins.hilt)
-    alias(libs.plugins.safeargs)
 }
 
 android {
-    namespace = "tech.dalapenko.filmdetails"
+    namespace = "tech.dalapenko.data.filmdetails"
     compileSdk = 34
+
+    buildFeatures.buildConfig = true
 
     defaultConfig {
         minSdk = 27
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-    }
-
-    buildFeatures {
-        viewBinding = true
     }
 
     buildTypes {
@@ -41,7 +38,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":data:filmdetails"))
-    implementation(libs.bundles.feature.filmdetails.implementation)
-    kapt(libs.bundles.feature.filmdetails.kapt)
+    implementation(project(":data:core"))
+    implementation(libs.bundles.data.filmdetails.implementation)
+    kapt(libs.bundles.data.filmdetails.kapt)
 }
