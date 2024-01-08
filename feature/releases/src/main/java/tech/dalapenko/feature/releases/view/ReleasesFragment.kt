@@ -5,18 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import tech.dalapenko.core.basepresentation.navigate.Animation
+import tech.dalapenko.core.basepresentation.navigate.Deeplink
 import tech.dalapenko.feature.releases.R
 import tech.dalapenko.feature.releases.databinding.ReleasesBinding
 import tech.dalapenko.feature.releases.viewmodel.UiState
@@ -53,10 +53,10 @@ class ReleasesFragment : Fragment(R.layout.releases) {
                             binding.error.isVisible = false
                             binding.content.isVisible = true
                             binding.content.adapter = ReleaseRecyclerAdapter(state.data) {
-                                val deeplink = NavDeepLinkRequest.Builder
-                                    .fromUri("kinosearch://filmdetails/${it.release.id}".toUri())
-                                    .build()
-                                findNavController().navigate(deeplink)
+                                findNavController().navigate(
+                                    request = Deeplink.openFilmDetails(it.release.id),
+                                    navOptions = Animation.slideRight(R.id.releases_root)
+                                )
                             }
                         }
                         is UiState.CachedDataReady -> {
