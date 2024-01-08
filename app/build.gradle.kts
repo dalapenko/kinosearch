@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin)
     alias(libs.plugins.kapt)
-    alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
 }
 
@@ -49,7 +48,6 @@ dependencies {
     implementation(project(":feature:search"))
     implementation(project(":feature:filmdetails"))
     implementation(libs.bundles.app.implementation)
-    ksp(libs.bundles.app.ksp)
     kapt(libs.bundles.app.kapt)
     testImplementation(libs.bundles.app.testImplementation)
     androidTestImplementation(libs.bundles.app.androidTestImplementation)
