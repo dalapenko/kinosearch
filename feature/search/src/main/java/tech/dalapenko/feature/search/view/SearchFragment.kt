@@ -54,8 +54,8 @@ class SearchFragment : Fragment(R.layout.search) {
                 viewModel.viewStateFlow.collect { state ->
                     when (state) {
                         is UiState.Ready -> onDataReady(state.data)
-                        is UiState.Loading -> setLoaderVisible()
-                        is UiState.Error -> setErrorVisible()
+                        is UiState.Loading -> onDataLoading()
+                        is UiState.Error -> onDataError()
                     }
                 }
             }
@@ -74,43 +74,41 @@ class SearchFragment : Fragment(R.layout.search) {
         searchResultAdapter.setData(searchResultList)
     }
 
-    private fun searchViewBiding(searchView: CustomSearchView) {
-        with(searchView) {
-            setOnQueryTextFocusChangeListener { view, hasFocus ->
-                if (hasFocus) showInputMethod(view.findFocus())
-            }
-            setOnBackButtonPressClickListener {
-                parentFragmentManager.popBackStack()
-            }
-            setOnQueryChangeListener {
-                viewModel.updateQuery(it)
-            }
-        }
-    }
-
-    private fun contentViewBinding(contentView: RecyclerView) {
-        with(contentView) {
-            layoutManager = LinearLayoutManager(context)
-            adapter = searchResultAdapter
-        }
-    }
-
-    private fun setContentVisible() = with(binding) {
-        loader.isVisible = false
-        error.isVisible = false
-        content.isVisible = true
-    }
-
-    private fun setLoaderVisible() = with(binding) {
+    private fun onDataLoading() = with(binding) {
         loader.isVisible = true
         content.isVisible = false
         error.isVisible = false
     }
 
-    private fun setErrorVisible() = with(binding) {
+    private fun onDataError() = with(binding) {
         loader.isVisible = false
         content.isVisible = false
         error.isVisible = true
+    }
+
+
+    private fun searchViewBiding(view: CustomSearchView) = with(view) {
+        setOnQueryTextFocusChangeListener { view, hasFocus ->
+            if (hasFocus) showInputMethod(view.findFocus())
+        }
+        setOnBackButtonPressClickListener {
+            parentFragmentManager.popBackStack()
+        }
+        setOnQueryChangeListener {
+            viewModel.updateQuery(it)
+        }
+    }
+
+    private fun contentViewBinding(view: RecyclerView) = with(view) {
+        layoutManager = LinearLayoutManager(context)
+        adapter = searchResultAdapter
+    }
+
+
+    private fun setContentVisible() = with(binding) {
+        loader.isVisible = false
+        error.isVisible = false
+        content.isVisible = true
     }
 
     private fun showInputMethod(view: View) {

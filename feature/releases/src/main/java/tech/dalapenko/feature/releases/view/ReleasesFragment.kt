@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,10 +12,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import tech.dalapenko.core.basepresentation.navigate.Animation
 import tech.dalapenko.core.basepresentation.navigate.Deeplink
+import tech.dalapenko.core.basepresentation.view.sectionrecycler.SectionRecyclerAdapter
 import tech.dalapenko.feature.releases.R
 import tech.dalapenko.feature.releases.databinding.ReleasesBinding
 import tech.dalapenko.feature.releases.viewmodel.UiState
@@ -31,59 +33,30 @@ class ReleasesFragment : Fragment(R.layout.releases) {
 
     private val viewModel: ReleaseViewModel by viewModels()
 
+    private val releasesRecyclerAdapter = ReleaseRecyclerAdapter {
+        findNavController().navigate(
+            request = Deeplink.openFilmDetails(it.release.id),
+            navOptions = Animation.slideRight(R.id.releases_root)
+        )
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = ReleasesBinding.inflate(inflater, container, false)
-        binding.content.layoutManager = LinearLayoutManager(context)
-        with(binding.refresh) {
-            setOnRefreshListener {
-                fetchCurrentData()
-                isRefreshing = false
-            }
+        with(binding) {
+            refreshViewBinding(refresh)
+            contentViewBinding(content)
         }
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.contentStateFlow.collect { state ->
                     when (state) {
-                        is UiState.CurrentDataReady -> {
-                            binding.cachedState.isVisible = false
-                            binding.loader.isVisible = false
-                            binding.error.isVisible = false
-                            binding.content.isVisible = true
-                            binding.content.adapter = ReleaseRecyclerAdapter(state.data) {
-                                findNavController().navigate(
-                                    request = Deeplink.openFilmDetails(it.release.id),
-                                    navOptions = Animation.slideRight(R.id.releases_root)
-                                )
-                            }
-                        }
-                        is UiState.CachedDataReady -> {
-                            binding.cachedState.isVisible = true
-                            binding.loader.isVisible = false
-                            binding.error.isVisible = false
-                            binding.content.isVisible = true
-                            binding.content.adapter = ReleaseRecyclerAdapter(state.data) {
-                                Toast.makeText(
-                                    context,
-                                    "Can't open details with cached result",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                        }
-                        is UiState.Loading -> {
-                            binding.cachedState.isVisible = false
-                            binding.loader.isVisible = true
-                            binding.content.isVisible = false
-                            binding.error.isVisible = false
-                        }
-                        is UiState.Error -> {
-                            binding.cachedState.isVisible = false
-                            binding.loader.isVisible = false
-                            binding.content.isVisible = false
-                            binding.error.isVisible = true
-                        }
+                        is UiState.CurrentDataReady -> onDataReady(state.data, false)
+                        is UiState.CachedDataReady -> onDataReady(state.data, true)
+                        is UiState.Loading -> onDataLoading()
+                        is UiState.Error -> onDataError()
                     }
                 }
             }
@@ -99,6 +72,46 @@ class ReleasesFragment : Fragment(R.layout.releases) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun onDataReady(releaseData: List<SectionRecyclerAdapter.Item>, isCachedData: Boolean) {
+        setContentVisible()
+        setCachedData(isCachedData)
+        releasesRecyclerAdapter.setData(releaseData)
+    }
+
+    private fun onDataLoading() = with(binding) {
+        loader.isVisible = true
+        content.isVisible = false
+        error.isVisible = false
+    }
+
+    private fun onDataError() = with(binding) {
+        loader.isVisible = false
+        content.isVisible = false
+        error.isVisible = true
+    }
+
+    private fun contentViewBinding(view: RecyclerView) = with(view) {
+        layoutManager = LinearLayoutManager(context)
+        adapter = releasesRecyclerAdapter
+    }
+
+    private fun refreshViewBinding(view: SwipeRefreshLayout) = with(view) {
+        setOnRefreshListener {
+            fetchCurrentData()
+            isRefreshing = false
+        }
+    }
+
+    private fun setContentVisible() = with(binding) {
+        loader.isVisible = false
+        error.isVisible = false
+        content.isVisible = true
+    }
+
+    private fun setCachedData(boolean: Boolean) = with(binding) {
+        cachedState.isVisible = boolean
     }
 
     private fun fetchCurrentData() {

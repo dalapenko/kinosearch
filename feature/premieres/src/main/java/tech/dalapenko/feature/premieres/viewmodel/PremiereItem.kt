@@ -6,4 +6,12 @@ import tech.dalapenko.data.premieres.model.Premiere
 
 class PremiereItem(
     val premiere: Premiere
-) : SectionRecyclerItem(SectionRecyclerAdapter.ItemType.ITEM)
+) : SectionRecyclerItem<PremiereItem>(SectionRecyclerAdapter.ItemType.ITEM) {
+    override fun areContentsTheSame(other: PremiereItem): Boolean {
+        return premiere.id == other.premiere.id
+    }
+
+    override fun areItemsTheSame(other: PremiereItem): Boolean {
+        return premiere == other.premiere
+    }
+}

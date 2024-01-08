@@ -8,8 +8,8 @@ object Animation {
 
     fun slideRight(
         @IdRes destinationId: Int,
-        inclusive: Boolean = true,
-        saveState: Boolean = true
+        inclusive: Boolean = false,
+        saveState: Boolean = false
     ): NavOptions {
         return NavOptions.Builder()
             .setPopUpTo(

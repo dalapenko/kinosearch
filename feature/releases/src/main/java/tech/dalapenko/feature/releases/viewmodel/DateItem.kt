@@ -2,8 +2,16 @@ package tech.dalapenko.feature.releases.viewmodel
 
 import tech.dalapenko.core.basepresentation.view.sectionrecycler.SectionRecyclerAdapter
 import tech.dalapenko.core.basepresentation.view.sectionrecycler.SectionRecyclerHeader
-import tech.dalapenko.core.basepresentation.view.sectionrecycler.SectionRecyclerItem
 
 class DateItem (
     val date: String?
-) : SectionRecyclerHeader(SectionRecyclerAdapter.ItemType.HEADER)
+) : SectionRecyclerHeader<DateItem>(SectionRecyclerAdapter.ItemType.HEADER) {
+
+    override fun areContentsTheSame(other: DateItem): Boolean {
+        return date == other.date
+    }
+
+    override fun areItemsTheSame(other: DateItem): Boolean {
+        return date == other.date
+    }
+}
