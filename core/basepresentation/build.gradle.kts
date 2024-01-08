@@ -39,5 +39,6 @@ android {
 dependencies {
 
     implementation(libs.bundles.core.basepresentation.implementation)
+    api(libs.bundles.core.basepresentation.api)
     kapt(libs.bundles.core.basepresentation.implementation)
 }

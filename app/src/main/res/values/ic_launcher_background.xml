@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_message">Something went wrong</string>
+    <color name="ic_launcher_background">#6F95DC</color>
 </resources>

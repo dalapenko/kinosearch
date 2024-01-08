@@ -217,9 +217,12 @@ core-basepresentation-implementation = [
     "androidx-core",
     "androidx-appcompat",
     "androidx-fragmentktx",
-    "androidx-navigationfragmentktx",
-    "glide-core",
-    "glide-crop"
+    "androidx-navigationfragmentktx"
+]
+
+core-basepresentation-api = [
+    "glide-crop",
+    "glide-core"
 ]
 
 core-basepresentation-kapt = [

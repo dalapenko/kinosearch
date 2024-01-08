@@ -13,8 +13,8 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/cover"
-            android:layout_width="@dimen/release_image_width"
-            android:layout_height="@dimen/release_image_height"
+            android:layout_width="@dimen/common_cover_image_width"
+            android:layout_height="@dimen/common_cover_image_height"
             android:layout_centerVertical="true"
             android:importantForAccessibility="no"
             app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Small"
