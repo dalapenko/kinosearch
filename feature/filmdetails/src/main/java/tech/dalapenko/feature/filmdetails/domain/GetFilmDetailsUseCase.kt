@@ -17,7 +17,7 @@ class GetFilmDetailsUseCase @Inject constructor(
         filmDetailsRepository.getFilmDetails(id)
             .collect { data ->
                 val uiState = when(data) {
-                    is DataState.Current -> UiState.Success(data.data)
+                    is DataState.Ready -> UiState.Success(data.data)
                     is DataState.Loading -> UiState.Loading
                     is DataState.FetchError -> UiState.Error
                 }

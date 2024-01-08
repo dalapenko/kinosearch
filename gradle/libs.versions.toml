@@ -25,6 +25,8 @@ kaspresso = "1.5.3"
 hilt-androidx = "1.1.0"
 swiperefreshlayout = "1.1.0"
 junit-ktx = "1.1.5"
+coroutine-test = "1.7.3"
+mockk = "1.13.9"
 
 [libraries]
 android-material = { module = "com.google.android.material:material", version.ref = "material" }
@@ -56,7 +58,9 @@ hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hil
 # test
 junit = { module = "junit:junit", version.ref = "junit" }
 kaspresso-core = { module = "com.kaspersky.android-components:kaspresso", version.ref = "kaspresso" }
-androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junit-ktx" }
+androidx-junit-ktx = { module = "androidx.test.ext:junit-ktx", version.ref = "junit-ktx" }
+coroutine-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutine-test" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "gradle" }
@@ -153,12 +157,24 @@ data-search-kapt = [
     "hilt-compiler"
 ]
 
+data-search-testImplementation = [
+    "junit",
+    "mockk",
+    "coroutine-test"
+]
+
 data-releases-implementation = [
     "hilt-core"
 ]
 
 data-releases-kapt = [
     "hilt-compiler"
+]
+
+data-releases-testImplementation = [
+    "junit",
+    "mockk",
+    "coroutine-test"
 ]
 
 data-premieres-implementation = [
@@ -169,13 +185,18 @@ data-premieres-kapt = [
     "hilt-compiler"
 ]
 
-
 data-filmdetails-implementation = [
     "hilt-core"
 ]
 
 data-filmdetails-kapt = [
     "hilt-compiler"
+]
+
+data-filmdetails-testImplementation = [
+    "junit",
+    "mockk",
+    "coroutine-test"
 ]
 
 core-network-implementation = [

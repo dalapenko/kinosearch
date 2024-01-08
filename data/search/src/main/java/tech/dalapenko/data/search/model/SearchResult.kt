@@ -11,7 +11,7 @@ data class SearchResult(
     val countryList: List<String>,
     val genreList: List<String>,
     val rating: String?,
-    val ratingVoteCount: Int,
+    val ratingVoteCount: Int?,
     val posterUrl: String?,
     val posterUrlPreview: String?
 )

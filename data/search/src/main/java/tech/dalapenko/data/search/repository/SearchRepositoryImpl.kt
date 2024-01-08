@@ -17,7 +17,7 @@ internal class SearchRepositoryImpl(
         emit(DataState.Loading)
 
         when (val searchResultResponse = remoteDataSource.getSearchResult(keyword)) {
-            is NetworkResponse.Success -> emit(DataState.Current(searchResultResponse.data))
+            is NetworkResponse.Success -> emit(DataState.Ready(searchResultResponse.data))
             else -> emit(DataState.FetchError)
         }
     }

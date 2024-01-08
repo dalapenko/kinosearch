@@ -42,4 +42,5 @@ dependencies {
     implementation(project(":core:database"))
     implementation(libs.bundles.data.filmdetails.implementation)
     kapt(libs.bundles.data.filmdetails.kapt)
+    testImplementation(libs.bundles.data.filmdetails.testImplementation)
 }

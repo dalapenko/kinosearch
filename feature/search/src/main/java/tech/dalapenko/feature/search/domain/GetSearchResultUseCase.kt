@@ -17,7 +17,7 @@ class GetSearchResultUseCase @Inject constructor(
         searchRepository.getSearchResult(keyword)
             .collect { data ->
                 val uiState = when(data) {
-                    is DataState.Current -> UiState.Ready(data.data)
+                    is DataState.Ready -> UiState.Ready(data.data)
                     is DataState.Loading -> UiState.Loading
                     is DataState.FetchError -> UiState.Error
                 }

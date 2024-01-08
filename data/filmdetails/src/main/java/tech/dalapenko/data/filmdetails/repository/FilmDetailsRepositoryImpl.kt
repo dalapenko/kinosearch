@@ -15,7 +15,7 @@ internal class FilmDetailsRepositoryImpl(
         emit(DataState.Loading)
 
         when (val filmDetailsResponse = remoteDataSource.getFilmDetails(id)) {
-            is NetworkResponse.Success -> emit(DataState.Current(filmDetailsResponse.data))
+            is NetworkResponse.Success -> emit(DataState.Ready(filmDetailsResponse.data))
             else -> emit(DataState.FetchError)
         }
     }

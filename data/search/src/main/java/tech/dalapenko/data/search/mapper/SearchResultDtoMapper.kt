@@ -24,7 +24,7 @@ internal class SearchResultDtoMapper @Inject constructor() :
             countryList = dto.countries?.mapNotNull(CountryDto::country) ?: emptyList(),
             genreList = dto.genres?.mapNotNull(GenreDto::genre) ?: emptyList(),
             rating = dto.rating,
-            ratingVoteCount = dto.ratingVoteCount ?: 0
+            ratingVoteCount = dto.ratingVoteCount
         )
     }
 

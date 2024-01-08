@@ -42,4 +42,5 @@ dependencies {
     implementation(project(":core:database"))
     implementation(libs.bundles.data.search.implementation)
     kapt(libs.bundles.data.search.kapt)
+    testImplementation(libs.bundles.data.search.testImplementation)
 }
