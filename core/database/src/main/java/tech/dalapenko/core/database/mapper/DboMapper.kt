@@ -1,4 +1,4 @@
-package tech.dalapenko.data.core.mapper
+package tech.dalapenko.core.database.mapper
 
 interface DboMapper<DBO, MODEL> {
 

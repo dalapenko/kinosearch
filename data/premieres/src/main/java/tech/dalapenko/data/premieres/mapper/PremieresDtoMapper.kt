@@ -1,10 +1,10 @@
 package tech.dalapenko.data.premieres.mapper
 
-import tech.dalapenko.data.core.mapper.DtoMapper
 import tech.dalapenko.data.premieres.model.Premiere
 import tech.dalapenko.core.network.dto.CountryDto
 import tech.dalapenko.core.network.dto.GenreDto
 import tech.dalapenko.core.network.dto.PremiereItemDto
+import tech.dalapenko.core.network.mapper.DtoMapper
 import javax.inject.Inject
 
 internal class PremieresDtoMapper @Inject constructor() : DtoMapper<PremiereItemDto, Premiere> {

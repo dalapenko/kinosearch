@@ -1,11 +1,11 @@
 package tech.dalapenko.data.releases.mapper
 
-import tech.dalapenko.data.core.mapper.DboMapper
 import tech.dalapenko.data.releases.model.Release
 import tech.dalapenko.core.database.dbo.CountryDbo
 import tech.dalapenko.core.database.dbo.FullReleaseDataDbo
 import tech.dalapenko.core.database.dbo.GenreDbo
 import tech.dalapenko.core.database.dbo.ReleaseDbo
+import tech.dalapenko.core.database.mapper.DboMapper
 import java.text.SimpleDateFormat
 import java.util.Locale
 import javax.inject.Inject

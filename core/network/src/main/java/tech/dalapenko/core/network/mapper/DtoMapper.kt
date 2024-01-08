@@ -1,4 +1,4 @@
-package tech.dalapenko.data.core.mapper
+package tech.dalapenko.core.network.mapper
 
 interface DtoMapper<DTO, MODEL> {
 

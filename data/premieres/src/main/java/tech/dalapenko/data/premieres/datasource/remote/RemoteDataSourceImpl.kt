@@ -1,12 +1,12 @@
 package tech.dalapenko.data.premieres.datasource.remote
 
 import kotlinx.coroutines.Dispatchers
-import tech.dalapenko.data.core.mapper.DtoMapper
 import tech.dalapenko.data.premieres.model.Premiere
 import tech.dalapenko.core.network.adapter.NetworkResponse
 import tech.dalapenko.core.network.adapter.mapOnSuccess
 import tech.dalapenko.core.network.api.KinoApi
 import tech.dalapenko.core.network.dto.PremiereItemDto
+import tech.dalapenko.core.network.mapper.DtoMapper
 import javax.inject.Inject
 
 internal class RemoteDataSourceImpl @Inject constructor(

@@ -5,7 +5,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
-import tech.dalapenko.data.core.mapper.DtoMapper
 import tech.dalapenko.data.filmdetails.datasource.remote.RemoteDataSource
 import tech.dalapenko.data.filmdetails.datasource.remote.RemoteDataSourceImpl
 import tech.dalapenko.data.filmdetails.mapper.FilmDetailsDtoMapper
@@ -13,6 +12,7 @@ import tech.dalapenko.data.filmdetails.model.Film
 import tech.dalapenko.data.filmdetails.repository.FilmDetailsRepository
 import tech.dalapenko.data.filmdetails.repository.FilmDetailsRepositoryImpl
 import tech.dalapenko.core.network.dto.FilmDto
+import tech.dalapenko.core.network.mapper.DtoMapper
 
 @Module(includes = [InternalFilmDetailsDataModule::class])
 @InstallIn(ViewModelComponent::class)

@@ -1,11 +1,11 @@
 package tech.dalapenko.data.premieres.mapper
 
-import tech.dalapenko.data.core.mapper.DboMapper
 import tech.dalapenko.data.premieres.model.Premiere
 import tech.dalapenko.core.database.dbo.CountryDbo
 import tech.dalapenko.core.database.dbo.FullPremiereDataDbo
 import tech.dalapenko.core.database.dbo.GenreDbo
 import tech.dalapenko.core.database.dbo.PremiereDbo
+import tech.dalapenko.core.database.mapper.DboMapper
 import java.text.SimpleDateFormat
 import java.util.Locale
 import javax.inject.Inject

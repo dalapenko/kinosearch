@@ -38,7 +38,8 @@ android {
 }
 
 dependencies {
-    implementation(project(":data:core"))
+    implementation(project(":core:network"))
+    implementation(project(":core:database"))
     implementation(libs.bundles.data.search.implementation)
     kapt(libs.bundles.data.search.kapt)
 }

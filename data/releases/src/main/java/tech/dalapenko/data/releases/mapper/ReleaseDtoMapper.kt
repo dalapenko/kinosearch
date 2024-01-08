@@ -1,10 +1,10 @@
 package tech.dalapenko.data.releases.mapper
 
-import tech.dalapenko.data.core.mapper.DtoMapper
 import tech.dalapenko.data.releases.model.Release
 import tech.dalapenko.core.network.dto.CountryDto
 import tech.dalapenko.core.network.dto.DigitalReleaseItemDto
 import tech.dalapenko.core.network.dto.GenreDto
+import tech.dalapenko.core.network.mapper.DtoMapper
 import javax.inject.Inject
 
 internal class ReleaseDtoMapper @Inject constructor() : DtoMapper<DigitalReleaseItemDto, Release> {

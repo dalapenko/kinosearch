@@ -5,7 +5,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
-import tech.dalapenko.data.core.mapper.DtoMapper
 import tech.dalapenko.data.search.datasource.remote.RemoteDataSource
 import tech.dalapenko.data.search.datasource.remote.RemoteDataSourceImpl
 import tech.dalapenko.data.search.mapper.SearchResultDtoMapper
@@ -13,6 +12,7 @@ import tech.dalapenko.data.search.model.SearchResult
 import tech.dalapenko.data.search.repository.SearchRepository
 import tech.dalapenko.data.search.repository.SearchRepositoryImpl
 import tech.dalapenko.core.network.dto.FilmSearchItemDto
+import tech.dalapenko.core.network.mapper.DtoMapper
 
 @Module(includes = [InternalSearchDataModule::class])
 @InstallIn(ViewModelComponent::class)

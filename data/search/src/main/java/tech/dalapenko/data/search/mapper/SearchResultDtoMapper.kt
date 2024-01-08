@@ -1,10 +1,10 @@
 package tech.dalapenko.data.search.mapper
 
-import tech.dalapenko.data.core.mapper.DtoMapper
 import tech.dalapenko.data.search.model.SearchResult
 import tech.dalapenko.core.network.dto.CountryDto
 import tech.dalapenko.core.network.dto.FilmSearchItemDto
 import tech.dalapenko.core.network.dto.GenreDto
+import tech.dalapenko.core.network.mapper.DtoMapper
 import javax.inject.Inject
 
 internal class SearchResultDtoMapper @Inject constructor() :

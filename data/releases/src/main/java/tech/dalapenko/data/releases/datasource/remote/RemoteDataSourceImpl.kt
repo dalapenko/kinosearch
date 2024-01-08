@@ -2,13 +2,13 @@ package tech.dalapenko.data.releases.datasource.remote
 
 import android.content.res.Resources.NotFoundException
 import kotlinx.coroutines.Dispatchers
-import tech.dalapenko.data.core.mapper.DtoMapper
 import tech.dalapenko.data.releases.model.Release
 import tech.dalapenko.core.network.adapter.NetworkResponse
 import tech.dalapenko.core.network.adapter.mapOnSuccess
 import tech.dalapenko.core.network.adapter.onSuccess
 import tech.dalapenko.core.network.api.KinoApi
 import tech.dalapenko.core.network.dto.DigitalReleaseItemDto
+import tech.dalapenko.core.network.mapper.DtoMapper
 import javax.inject.Inject
 
 internal class RemoteDataSourceImpl @Inject constructor(

@@ -5,8 +5,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
-import tech.dalapenko.data.core.mapper.DboMapper
-import tech.dalapenko.data.core.mapper.DtoMapper
 import tech.dalapenko.data.releases.datasource.local.LocalDataSource
 import tech.dalapenko.data.releases.datasource.local.LocalDataSourceImpl
 import tech.dalapenko.data.releases.datasource.remote.RemoteDataSource
@@ -17,7 +15,9 @@ import tech.dalapenko.data.releases.model.Release
 import tech.dalapenko.data.releases.repository.ReleaseRepository
 import tech.dalapenko.data.releases.repository.ReleaseRepositoryImpl
 import tech.dalapenko.core.database.dbo.FullReleaseDataDbo
+import tech.dalapenko.core.database.mapper.DboMapper
 import tech.dalapenko.core.network.dto.DigitalReleaseItemDto
+import tech.dalapenko.core.network.mapper.DtoMapper
 
 @Module(includes = [InternalReleasesDataModule::class])
 @InstallIn(ViewModelComponent::class)
