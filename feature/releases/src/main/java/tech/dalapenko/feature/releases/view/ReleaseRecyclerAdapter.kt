@@ -8,8 +8,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import tech.dalapenko.data.releases.model.Release
-import tech.dalapenko.releases.databinding.ReleaseDateItemBinding
-import tech.dalapenko.releases.databinding.ReleaseItemBinding
+import tech.dalapenko.feature.releases.databinding.ReleaseDateItemBinding
+import tech.dalapenko.feature.releases.databinding.ReleaseItemBinding
 import tech.dalapenko.feature.releases.viewmodel.ReleaseListItem
 
 class ReleaseRecyclerAdapter(

@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.flow
 import tech.dalapenko.data.releases.datasource.local.LocalDataSource
 import tech.dalapenko.data.releases.datasource.remote.RemoteDataSource
 import tech.dalapenko.data.releases.model.Release
-import tech.dalapenko.network.adapter.NetworkResponse
+import tech.dalapenko.core.network.adapter.NetworkResponse
 import javax.inject.Inject
 
 internal class ReleaseRepositoryImpl(

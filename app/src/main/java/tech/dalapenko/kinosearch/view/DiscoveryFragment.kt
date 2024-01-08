@@ -10,7 +10,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import tech.dalapenko.kinosearch.R
 import tech.dalapenko.kinosearch.databinding.DiscoveryFragmentBinding
-import tech.dalapenko.premieres.view.PremieresFragment
+import tech.dalapenko.feature.premieres.view.PremieresFragment
 import tech.dalapenko.feature.releases.view.ReleasesFragment
 
 class DiscoveryFragment : Fragment(R.layout.discovery_fragment) {

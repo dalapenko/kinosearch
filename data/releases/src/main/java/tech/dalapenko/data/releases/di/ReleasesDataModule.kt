@@ -16,8 +16,8 @@ import tech.dalapenko.data.releases.mapper.ReleaseDtoMapper
 import tech.dalapenko.data.releases.model.Release
 import tech.dalapenko.data.releases.repository.ReleaseRepository
 import tech.dalapenko.data.releases.repository.ReleaseRepositoryImpl
-import tech.dalapenko.database.dbo.FullReleaseDataDbo
-import tech.dalapenko.network.dto.DigitalReleaseItemDto
+import tech.dalapenko.core.database.dbo.FullReleaseDataDbo
+import tech.dalapenko.core.network.dto.DigitalReleaseItemDto
 
 @Module(includes = [InternalReleasesDataModule::class])
 @InstallIn(ViewModelComponent::class)

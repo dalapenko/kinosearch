@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "tech.dalapenko.database"
+    namespace = "tech.dalapenko.core.database"
     compileSdk = 34
 
     buildFeatures.buildConfig = true

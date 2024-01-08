@@ -4,11 +4,11 @@ import android.content.res.Resources.NotFoundException
 import kotlinx.coroutines.Dispatchers
 import tech.dalapenko.data.core.mapper.DtoMapper
 import tech.dalapenko.data.releases.model.Release
-import tech.dalapenko.network.adapter.NetworkResponse
-import tech.dalapenko.network.adapter.mapOnSuccess
-import tech.dalapenko.network.adapter.onSuccess
-import tech.dalapenko.network.api.KinoApi
-import tech.dalapenko.network.dto.DigitalReleaseItemDto
+import tech.dalapenko.core.network.adapter.NetworkResponse
+import tech.dalapenko.core.network.adapter.mapOnSuccess
+import tech.dalapenko.core.network.adapter.onSuccess
+import tech.dalapenko.core.network.api.KinoApi
+import tech.dalapenko.core.network.dto.DigitalReleaseItemDto
 import javax.inject.Inject
 
 internal class RemoteDataSourceImpl @Inject constructor(

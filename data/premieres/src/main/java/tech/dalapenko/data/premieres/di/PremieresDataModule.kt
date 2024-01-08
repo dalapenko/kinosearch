@@ -16,8 +16,8 @@ import tech.dalapenko.data.premieres.mapper.PremieresDtoMapper
 import tech.dalapenko.data.premieres.model.Premiere
 import tech.dalapenko.data.premieres.repository.PremieresRepository
 import tech.dalapenko.data.premieres.repository.PremieresRepositoryImpl
-import tech.dalapenko.database.dbo.FullPremiereDataDbo
-import tech.dalapenko.network.dto.PremiereItemDto
+import tech.dalapenko.core.database.dbo.FullPremiereDataDbo
+import tech.dalapenko.core.network.dto.PremiereItemDto
 
 @Module(includes = [InternalPremieresDataModule::class])
 @InstallIn(ViewModelComponent::class)

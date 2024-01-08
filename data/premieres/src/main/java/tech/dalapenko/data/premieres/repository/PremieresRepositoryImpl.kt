@@ -5,10 +5,10 @@ import kotlinx.coroutines.flow.flow
 import tech.dalapenko.data.premieres.datasource.local.LocalDataSource
 import tech.dalapenko.data.premieres.datasource.remote.RemoteDataSource
 import tech.dalapenko.data.premieres.model.Premiere
-import tech.dalapenko.network.adapter.NetworkResponse
-import tech.dalapenko.network.adapter.onError
-import tech.dalapenko.network.adapter.onException
-import tech.dalapenko.network.adapter.onSuccess
+import tech.dalapenko.core.network.adapter.NetworkResponse
+import tech.dalapenko.core.network.adapter.onError
+import tech.dalapenko.core.network.adapter.onException
+import tech.dalapenko.core.network.adapter.onSuccess
 
 internal class PremieresRepositoryImpl(
     private val remoteDataSource: RemoteDataSource,

@@ -2,9 +2,9 @@ package tech.dalapenko.data.filmdetails.mapper
 
 import tech.dalapenko.data.core.mapper.DtoMapper
 import tech.dalapenko.data.filmdetails.model.Film
-import tech.dalapenko.network.dto.CountryDto
-import tech.dalapenko.network.dto.FilmDto
-import tech.dalapenko.network.dto.GenreDto
+import tech.dalapenko.core.network.dto.CountryDto
+import tech.dalapenko.core.network.dto.FilmDto
+import tech.dalapenko.core.network.dto.GenreDto
 import javax.inject.Inject
 
 internal class FilmDetailsDtoMapper @Inject constructor() :

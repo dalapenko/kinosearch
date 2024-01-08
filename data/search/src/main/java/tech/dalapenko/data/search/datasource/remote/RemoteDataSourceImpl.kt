@@ -4,10 +4,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import tech.dalapenko.data.core.mapper.DtoMapper
 import tech.dalapenko.data.search.model.SearchResult
-import tech.dalapenko.network.adapter.NetworkResponse
-import tech.dalapenko.network.adapter.mapOnSuccess
-import tech.dalapenko.network.api.KinoApi
-import tech.dalapenko.network.dto.FilmSearchItemDto
+import tech.dalapenko.core.network.adapter.NetworkResponse
+import tech.dalapenko.core.network.adapter.mapOnSuccess
+import tech.dalapenko.core.network.api.KinoApi
+import tech.dalapenko.core.network.dto.FilmSearchItemDto
 import javax.inject.Inject
 
 internal class RemoteDataSourceImpl @Inject constructor(

@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "tech.dalapenko.search"
+    namespace = "tech.dalapenko.feature.search"
     compileSdk = 34
 
     defaultConfig {

@@ -17,8 +17,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import tech.dalapenko.releases.R
-import tech.dalapenko.releases.databinding.ReleasesBinding
+import tech.dalapenko.feature.releases.R
+import tech.dalapenko.feature.releases.databinding.ReleasesBinding
 import tech.dalapenko.feature.releases.viewmodel.UiState
 import tech.dalapenko.feature.releases.viewmodel.ReleaseViewModel
 import java.time.LocalDate

@@ -2,10 +2,10 @@ package tech.dalapenko.data.filmdetails.datasource.remote
 
 import tech.dalapenko.data.core.mapper.DtoMapper
 import tech.dalapenko.data.filmdetails.model.Film
-import tech.dalapenko.network.adapter.NetworkResponse
-import tech.dalapenko.network.adapter.mapOnSuccess
-import tech.dalapenko.network.api.KinoApi
-import tech.dalapenko.network.dto.FilmDto
+import tech.dalapenko.core.network.adapter.NetworkResponse
+import tech.dalapenko.core.network.adapter.mapOnSuccess
+import tech.dalapenko.core.network.api.KinoApi
+import tech.dalapenko.core.network.dto.FilmDto
 import javax.inject.Inject
 
 internal class RemoteDataSourceImpl @Inject constructor(

@@ -11,7 +11,7 @@ plugins {
 }
 
 android {
-    namespace = "tech.dalapenko.network"
+    namespace = "tech.dalapenko.core.network"
     compileSdk = 34
 
     buildFeatures.buildConfig = true

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/filmDetailsFragment"
-        android:name="tech.dalapenko.filmdetails.view.FilmDetailsFragment"
+        android:name="tech.dalapenko.feature.filmdetails.view.FilmDetailsFragment"
         android:label="SearchFragment"
         tools:layout="@layout/film_details">
 

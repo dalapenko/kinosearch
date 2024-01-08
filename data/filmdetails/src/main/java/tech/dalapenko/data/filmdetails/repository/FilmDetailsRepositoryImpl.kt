@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import tech.dalapenko.data.filmdetails.datasource.remote.RemoteDataSource
 import tech.dalapenko.data.filmdetails.model.Film
-import tech.dalapenko.network.adapter.NetworkResponse
+import tech.dalapenko.core.network.adapter.NetworkResponse
 
 internal class FilmDetailsRepositoryImpl(
     private val remoteDataSource: RemoteDataSource

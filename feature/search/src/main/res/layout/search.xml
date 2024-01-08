@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <tech.dalapenko.search.view.CustomSearchView
+    <tech.dalapenko.feature.search.view.CustomSearchView
         android:id="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,7 +15,7 @@
         tools:layout_height="100dp">
 
         <requestFocus />
-    </tech.dalapenko.search.view.CustomSearchView>
+    </tech.dalapenko.feature.search.view.CustomSearchView>
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/loader"

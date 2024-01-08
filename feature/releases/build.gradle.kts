@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "tech.dalapenko.releases"
+    namespace = "tech.dalapenko.feature.releases"
     compileSdk = 34
 
     defaultConfig {

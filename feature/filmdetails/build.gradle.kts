@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "tech.dalapenko.filmdetails"
+    namespace = "tech.dalapenko.feature.filmdetails"
     compileSdk = 34
 
     defaultConfig {

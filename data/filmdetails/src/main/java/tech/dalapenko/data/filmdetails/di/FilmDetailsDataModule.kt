@@ -12,7 +12,7 @@ import tech.dalapenko.data.filmdetails.mapper.FilmDetailsDtoMapper
 import tech.dalapenko.data.filmdetails.model.Film
 import tech.dalapenko.data.filmdetails.repository.FilmDetailsRepository
 import tech.dalapenko.data.filmdetails.repository.FilmDetailsRepositoryImpl
-import tech.dalapenko.network.dto.FilmDto
+import tech.dalapenko.core.network.dto.FilmDto
 
 @Module(includes = [InternalFilmDetailsDataModule::class])
 @InstallIn(ViewModelComponent::class)

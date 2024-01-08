@@ -12,7 +12,7 @@ import tech.dalapenko.data.search.mapper.SearchResultDtoMapper
 import tech.dalapenko.data.search.model.SearchResult
 import tech.dalapenko.data.search.repository.SearchRepository
 import tech.dalapenko.data.search.repository.SearchRepositoryImpl
-import tech.dalapenko.network.dto.FilmSearchItemDto
+import tech.dalapenko.core.network.dto.FilmSearchItemDto
 
 @Module(includes = [InternalSearchDataModule::class])
 @InstallIn(ViewModelComponent::class)
