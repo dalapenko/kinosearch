@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -44,8 +45,12 @@ class FilmDetailsFragment : Fragment(R.layout.film_details) {
                         is UiState.Success -> {
                             bindingFilmDetailsContent(state.data)
                         }
-                        is UiState.Loading -> Unit
-                        is UiState.Error -> Unit
+                        is UiState.Loading -> {
+                            bindingLoader()
+                        }
+                        is UiState.Error -> {
+                            bindingError()
+                        }
                     }
                 }
             }
@@ -69,7 +74,20 @@ class FilmDetailsFragment : Fragment(R.layout.film_details) {
             film.logoUrl?.let(logo::loadImageFit)
             film.ruName?.let(title::setText)
             film.description?.let(description::setText)
+
+            error.isVisible = false
+            loader.isVisible = false
         }
+    }
+
+    private fun bindingError() = with(binding) {
+        error.isVisible = true
+        loader.isVisible = false
+    }
+
+    private fun bindingLoader() = with(binding) {
+        error.isVisible = false
+        loader.isVisible = true
     }
 }
 
