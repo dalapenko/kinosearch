@@ -22,7 +22,7 @@ import tech.dalapenko.core.basepresentation.navigate.Deeplink
 import tech.dalapenko.data.search.model.SearchResult
 import tech.dalapenko.feature.search.R
 import tech.dalapenko.feature.search.databinding.SearchBinding
-import tech.dalapenko.feature.search.viewmodel.UiState
+import tech.dalapenko.feature.search.model.UiState
 import tech.dalapenko.feature.search.viewmodel.SearchViewModel
 
 @AndroidEntryPoint

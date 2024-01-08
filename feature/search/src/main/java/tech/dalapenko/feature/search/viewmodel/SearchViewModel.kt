@@ -13,14 +13,14 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import tech.dalapenko.data.search.model.SearchResult
-import tech.dalapenko.data.search.repository.DataState
-import tech.dalapenko.data.search.repository.SearchRepository
+import tech.dalapenko.feature.search.domain.GetSearchResultUseCase
+import tech.dalapenko.feature.search.model.UiState
 import javax.inject.Inject
 
 @HiltViewModel
 @OptIn(FlowPreview::class)
 class SearchViewModel @Inject constructor(
-    private val searchRepository: SearchRepository
+    private val getSearchResultUseCase: GetSearchResultUseCase
 ) : ViewModel() {
 
     private var queryStateFlow: MutableStateFlow<String?> = MutableStateFlow(null)
@@ -42,16 +42,8 @@ class SearchViewModel @Inject constructor(
             }
             .distinctUntilChanged()
             .onEach {
-                mutableViewStateFlow.emit(UiState.Loading)
-                searchRepository.getSearchResult(it)
-                    .collect { data ->
-                        val uiState = when(data) {
-                            is DataState.Current -> UiState.Ready(data.data)
-                            is DataState.Loading -> UiState.Loading
-                            is DataState.FetchError -> UiState.Error
-                        }
-                        mutableViewStateFlow.emit(uiState)
-                    }
+                getSearchResultUseCase.invoke(it)
+                    .collect(mutableViewStateFlow::emit)
             }
             .launchIn(viewModelScope)
     }

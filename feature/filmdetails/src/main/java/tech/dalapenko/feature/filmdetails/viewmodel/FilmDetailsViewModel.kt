@@ -3,19 +3,17 @@ package tech.dalapenko.feature.filmdetails.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import tech.dalapenko.data.filmdetails.model.Film
-import tech.dalapenko.data.filmdetails.repository.DataState
-import tech.dalapenko.data.filmdetails.repository.FilmDetailsRepository
+import tech.dalapenko.feature.filmdetails.domain.GetFilmDetailsUseCase
+import tech.dalapenko.feature.filmdetails.model.UiState
 import javax.inject.Inject
 
 @HiltViewModel
 class FilmDetailsViewModel @Inject constructor(
-    private val filmDetailsRepository: FilmDetailsRepository
+    private val getFilmDetailsUseCase: GetFilmDetailsUseCase
 ) : ViewModel() {
 
     private val mutableContentUiStateFlow: MutableStateFlow<UiState<Film>> =
@@ -24,19 +22,8 @@ class FilmDetailsViewModel @Inject constructor(
 
     fun fetchFilmData(id: Int) {
         viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                mutableContentUiStateFlow.emit(UiState.Loading)
-                filmDetailsRepository.getFilmDetails(id)
-                    .collect { data ->
-                        val uiState = when(data) {
-                            is DataState.Current -> UiState.Success(data.data)
-                            is DataState.Loading -> UiState.Loading
-                            is DataState.FetchError -> UiState.Error
-                        }
-
-                        mutableContentUiStateFlow.emit(uiState)
-                    }
-            }
+            getFilmDetailsUseCase(id)
+                .collect(mutableContentUiStateFlow::emit)
         }
     }
 }

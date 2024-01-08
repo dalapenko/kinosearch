@@ -8,8 +8,8 @@ import tech.dalapenko.core.basepresentation.view.sectionrecycler.SectionRecycler
 import tech.dalapenko.core.basepresentation.view.sectionrecycler.SectionRecyclerItem
 import tech.dalapenko.feature.releases.databinding.ReleaseDateItemBinding
 import tech.dalapenko.feature.releases.databinding.ReleaseItemBinding
-import tech.dalapenko.feature.releases.viewmodel.DateItem
-import tech.dalapenko.feature.releases.viewmodel.ReleaseItem
+import tech.dalapenko.feature.releases.model.DateItem
+import tech.dalapenko.feature.releases.model.ReleaseItem
 
 class ReleaseRecyclerAdapter(
     private val onItemClickListener: SectionRecyclerItem.OnItemClicked<ReleaseItem>

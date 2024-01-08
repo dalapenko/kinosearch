@@ -37,6 +37,7 @@
         android:id="@+id/cover"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:scaleType="fitXY"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/hg_30_percent"
         app:layout_constraintStart_toStartOf="parent"

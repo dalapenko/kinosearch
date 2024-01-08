@@ -1,4 +1,4 @@
-package tech.dalapenko.feature.releases.viewmodel
+package tech.dalapenko.feature.releases.model
 
 sealed class UiState<out T> {
 

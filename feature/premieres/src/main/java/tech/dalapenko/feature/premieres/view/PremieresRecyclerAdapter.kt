@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import tech.dalapenko.core.basepresentation.utils.loadImage
 import tech.dalapenko.core.basepresentation.view.sectionrecycler.SectionRecyclerAdapter
 import tech.dalapenko.core.basepresentation.view.sectionrecycler.SectionRecyclerItem
-import tech.dalapenko.feature.premieres.viewmodel.DateItem
-import tech.dalapenko.feature.premieres.viewmodel.PremiereItem
+import tech.dalapenko.feature.premieres.model.DateItem
+import tech.dalapenko.feature.premieres.model.PremiereItem
 import tech.dalapenko.premieres.databinding.PremiereDateItemBinding
 import tech.dalapenko.premieres.databinding.PremiereItemBinding
 

@@ -1,4 +1,4 @@
-package tech.dalapenko.feature.releases.viewmodel
+package tech.dalapenko.feature.releases.model
 
 import tech.dalapenko.core.basepresentation.view.sectionrecycler.SectionRecyclerAdapter
 import tech.dalapenko.core.basepresentation.view.sectionrecycler.SectionRecyclerItem

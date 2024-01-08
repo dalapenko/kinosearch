@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -20,7 +19,7 @@ import tech.dalapenko.data.filmdetails.model.Film
 import tech.dalapenko.feature.filmdetails.R
 import tech.dalapenko.feature.filmdetails.databinding.FilmDetailsBinding
 import tech.dalapenko.feature.filmdetails.viewmodel.FilmDetailsViewModel
-import tech.dalapenko.feature.filmdetails.viewmodel.UiState
+import tech.dalapenko.feature.filmdetails.model.UiState
 
 @AndroidEntryPoint
 class FilmDetailsFragment : Fragment(R.layout.film_details) {

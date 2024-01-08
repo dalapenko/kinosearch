@@ -21,7 +21,7 @@ import tech.dalapenko.core.basepresentation.navigate.Deeplink
 import tech.dalapenko.core.basepresentation.view.sectionrecycler.SectionRecyclerAdapter
 import tech.dalapenko.feature.releases.R
 import tech.dalapenko.feature.releases.databinding.ReleasesBinding
-import tech.dalapenko.feature.releases.viewmodel.UiState
+import tech.dalapenko.feature.releases.model.UiState
 import tech.dalapenko.feature.releases.viewmodel.ReleaseViewModel
 import java.time.LocalDate
 

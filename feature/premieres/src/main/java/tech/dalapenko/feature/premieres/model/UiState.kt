@@ -1,4 +1,4 @@
-package tech.dalapenko.feature.premieres.viewmodel
+package tech.dalapenko.feature.premieres.model
 
 sealed class UiState<out T> {
 

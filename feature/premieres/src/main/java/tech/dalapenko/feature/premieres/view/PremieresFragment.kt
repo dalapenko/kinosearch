@@ -22,7 +22,7 @@ import tech.dalapenko.core.basepresentation.view.sectionrecycler.SectionRecycler
 import tech.dalapenko.premieres.R
 import tech.dalapenko.premieres.databinding.PremieresBinding
 import tech.dalapenko.feature.premieres.viewmodel.PremieresViewModel
-import tech.dalapenko.feature.premieres.viewmodel.UiState
+import tech.dalapenko.feature.premieres.model.UiState
 import java.time.LocalDate
 
 @AndroidEntryPoint
