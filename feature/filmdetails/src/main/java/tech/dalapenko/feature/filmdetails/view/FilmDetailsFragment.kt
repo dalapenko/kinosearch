@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -67,7 +68,9 @@ class FilmDetailsFragment : Fragment(R.layout.film_details) {
 
     private fun bindingFilmDetailsContent(film: Film) {
         with(binding) {
-            (film.coverUrl ?: film.posterUrl)?.let { cover.loadImage(it, ImageTransform.CropTop()) }
+            (film.coverUrl ?: film.posterUrl)
+                ?.let { cover.loadImage(it, ImageTransform.CropTop()) }
+                ?: cover.setImageResource(R.drawable.default_cover)
             film.logoUrl?.let { logo.loadImage(it, ImageTransform.FitCenter()) }
             film.ruName?.let(title::setText)
             film.description?.let(description::setText)

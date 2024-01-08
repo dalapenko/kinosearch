@@ -2,4 +2,27 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    
+    <!-- Color for Custom Theme -->
+
+    <color name="blue_50">#E5F2FC</color>
+    <color name="blue_100">#BFDFF8</color>
+    <color name="blue_200">#98CCF3</color>
+    <color name="blue_300">#72B8EE</color>
+    <color name="blue_400">#58A9EB</color>
+    <color name="blue_500">#439BE8</color>
+    <color name="blue_600">#3C8DDA</color>
+    <color name="blue_700">#347BC7</color>
+    <color name="blue_800">#2E6AB5</color>
+    <color name="blue_900">#234D96</color>
+    <color name="orange_50">#FEF8E1</color>
+    <color name="orange_100">#FEECB4</color>
+    <color name="orange_200">#FDE083</color>
+    <color name="orange_300">#FCD651</color>
+    <color name="orange_400">#FCCB2B</color>
+    <color name="orange_500">#FCC210</color>
+    <color name="orange_600">#FCB407</color>
+    <color name="orange_700">#FCA104</color>
+    <color name="orange_800">#FC9002</color>
+    <color name="orange_900">#FC7100</color>
 </resources>

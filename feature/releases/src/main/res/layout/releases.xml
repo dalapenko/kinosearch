@@ -7,6 +7,7 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.textview.MaterialTextView
+        style="@style/TextAppearance.Material3.TitleSmall"
         android:id="@+id/cached_state"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -20,6 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
+        style="@style/Widget.Material3.CircularProgressIndicator.Medium"
         android:id="@+id/loader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,6 +33,7 @@
         tools:visibility="visible" />
 
     <TextView
+        style="@style/TextAppearance.Material3.TitleMedium"
         android:id="@+id/error"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

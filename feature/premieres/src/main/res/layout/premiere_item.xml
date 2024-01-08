@@ -2,6 +2,7 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Widget.Material3.CardView.Filled"
     android:id="@+id/premiere_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -23,6 +24,7 @@
             app:layout_constraintBottom_toBottomOf="parent" />
 
         <TextView
+            style="@style/TextAppearance.Material3.TitleMedium"
             android:id="@+id/ru_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,6 +35,7 @@
             tools:text="Гринч — похититель Рождества" />
 
         <TextView
+            style="@style/TextAppearance.Material3.TitleSmall"
             android:id="@+id/origin_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
