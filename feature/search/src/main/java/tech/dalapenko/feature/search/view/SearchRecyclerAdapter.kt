@@ -1,6 +1,7 @@
 package tech.dalapenko.feature.search.view
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -37,7 +38,7 @@ class SearchRecyclerAdapter(
             originTitle.text = data.originName
 
             root.setOnClickListener {
-                onItemClickListener?.onItemClicked(data)
+                onItemClickListener.onItemClicked(this.root, data)
             }
         }
     }
@@ -51,6 +52,6 @@ class SearchRecyclerAdapter(
     }
 
     fun interface OnSearchResultClicked {
-        fun onItemClicked(item: SearchResult)
+        fun onItemClicked(view: View, item: SearchResult)
     }
 }

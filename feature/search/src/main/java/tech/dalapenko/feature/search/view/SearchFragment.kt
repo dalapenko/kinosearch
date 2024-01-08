@@ -33,9 +33,10 @@ class SearchFragment : Fragment(R.layout.search) {
 
     private val viewModel: SearchViewModel by viewModels()
 
-    private val searchResultAdapter = SearchRecyclerAdapter {
+    private val searchResultAdapter = SearchRecyclerAdapter { view, item ->
+        showInputMethod(view, false)
         findNavController().navigate(
-            request = Deeplink.openFilmDetails(it.id),
+            request = Deeplink.openFilmDetails(item.id),
             navOptions = Animation.slideRight(R.id.search_root)
         )
     }
@@ -111,8 +112,13 @@ class SearchFragment : Fragment(R.layout.search) {
         content.isVisible = true
     }
 
-    private fun showInputMethod(view: View) {
+    private fun showInputMethod(view: View, isShow: Boolean = true) {
         val imm = getSystemService(requireContext(), InputMethodManager::class.java)
-        imm?.showSoftInput(view, 0)
+
+        if (isShow) {
+            imm?.showSoftInput(view, 0)
+        } else {
+            imm?.hideSoftInputFromWindow(view.windowToken, 0)
+        }
     }
 }
