@@ -218,3 +218,12 @@ core-database-kapt = [
     "androidx-room-compiler",
     "hilt-compiler"
 ]
+
+core-basepresentation-implementation = [
+    "android-material",
+    "androidx-core",
+    "androidx-appcompat",
+    "androidx-fragmentktx",
+    "androidx-navigationfragmentktx",
+]
+

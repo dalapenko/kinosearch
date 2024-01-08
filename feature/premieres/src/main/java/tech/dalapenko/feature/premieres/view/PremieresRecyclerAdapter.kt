@@ -7,70 +7,54 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import tech.dalapenko.data.premieres.model.Premiere
+import tech.dalapenko.core.basepresentation.view.sectionrecycler.SectionRecyclerAdapter
+import tech.dalapenko.core.basepresentation.view.sectionrecycler.SectionRecyclerHeader
+import tech.dalapenko.core.basepresentation.view.sectionrecycler.SectionRecyclerItem
+import tech.dalapenko.feature.premieres.viewmodel.DateItem
+import tech.dalapenko.feature.premieres.viewmodel.PremiereItem
 import tech.dalapenko.premieres.databinding.PremiereDateItemBinding
 import tech.dalapenko.premieres.databinding.PremiereItemBinding
-import tech.dalapenko.feature.premieres.viewmodel.PremiereListItem
 
 class PremieresRecyclerAdapter(
-    private val recyclerItemList: List<PremiereListItem>,
-    private val onItemClickListener: OnPremiereItemClicked
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    recyclerItemList: List<Item>,
+    private val onItemClickListener: SectionRecyclerItem.OnItemClicked<PremiereItem>
+) : SectionRecyclerAdapter<PremieresRecyclerAdapter.DateViewHolder, PremieresRecyclerAdapter.PremiereViewHolder>(
+    recyclerItemList
+) {
 
-    class PremiereViewHolder(val item: PremiereItemBinding) : RecyclerView.ViewHolder(item.root)
     class DateViewHolder(val item: PremiereDateItemBinding) : RecyclerView.ViewHolder(item.root)
+    class PremiereViewHolder(val item: PremiereItemBinding) : RecyclerView.ViewHolder(item.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (viewType) {
-            PremiereListItem.DATE_VIEW_TYPE -> DateViewHolder(
-                PremiereDateItemBinding.inflate(
-                    LayoutInflater.from(parent.context), parent, false
-                )
-            )
-            else -> PremiereViewHolder(
-                PremiereItemBinding.inflate(
-                    LayoutInflater.from(parent.context), parent, false
-                )
-            )
+    override fun onBindHeaderViewHolder(holder: DateViewHolder, data: SectionRecyclerHeader) {
+        holder.item.premiereDate.text = (data as DateItem).date
+    }
+
+    override fun onBindItemViewHolder(holder: PremiereViewHolder, data: SectionRecyclerItem) {
+        val premierData = (data as PremiereItem).premiere
+
+        with(holder.item) {
+            cover.loadImage(premierData.posterUrlPreview)
+            ruTitle.text = premierData.ruName
+            originTitle.text = premierData.originName
+
+            root.setOnClickListener { onItemClickListener.onItemClicked(data) }
         }
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return recyclerItemList[position].type
+    override fun onCreateHeaderViewHolder(parent: ViewGroup, viewType: ItemType): DateViewHolder {
+        return DateViewHolder(
+            PremiereDateItemBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
+        )
     }
 
-    override fun getItemCount(): Int {
-        return recyclerItemList.size
-    }
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val data = recyclerItemList[position]
-        when (holder.itemViewType) {
-            PremiereListItem.DATE_VIEW_TYPE -> {
-                val dateHolder = (holder as DateViewHolder).item
-                val dateData = (data as PremiereListItem.DateItem).date
-
-                with(dateHolder) {
-                    premiereDate.text = dateData
-                }
-            }
-            PremiereListItem.PREMIERE_VIEW_TYPE -> {
-                val premierHolder = (holder as PremiereViewHolder).item
-                val premierData = (data as PremiereListItem.PremiereItem).premiere
-
-                with(premierHolder) {
-                    cover.loadImage(premierData.posterUrlPreview)
-                    ruTitle.text = premierData.ruName
-                    originTitle.text = premierData.originName
-
-                    root.setOnClickListener { onItemClickListener.onItemClicked(premierData) }
-                }
-            }
-        }
-    }
-
-    fun interface OnPremiereItemClicked {
-        fun onItemClicked(item: Premiere)
+    override fun onCreateItemViewHolder(parent: ViewGroup, viewType: ItemType): PremiereViewHolder {
+        return PremiereViewHolder(
+            PremiereItemBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
+        )
     }
 }
 

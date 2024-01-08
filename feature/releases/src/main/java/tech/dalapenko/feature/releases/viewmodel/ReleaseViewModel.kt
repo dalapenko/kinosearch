@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import tech.dalapenko.core.basepresentation.view.sectionrecycler.SectionRecyclerAdapter
 import tech.dalapenko.data.releases.model.Release
 import tech.dalapenko.data.releases.repository.DataState
 import tech.dalapenko.data.releases.repository.ReleaseRepository
@@ -18,7 +19,7 @@ class ReleaseViewModel @Inject constructor(
     private val releaseRepository: ReleaseRepository
 ) : ViewModel() {
 
-    private val mutableContentStateFlow: MutableStateFlow<UiState<List<ReleaseListItem>>> =
+    private val mutableContentStateFlow: MutableStateFlow<UiState<List<SectionRecyclerAdapter.Item>>> =
         MutableStateFlow(UiState.Loading)
     val contentStateFlow = mutableContentStateFlow.asStateFlow()
 
@@ -54,8 +55,8 @@ class ReleaseViewModel @Inject constructor(
 
     private fun groupReleaseListByDate(
         premiereList: List<Release>
-    ): List<ReleaseListItem> {
-        val recyclerItemList = mutableListOf<ReleaseListItem>()
+    ): List<SectionRecyclerAdapter.Item> {
+        val recyclerItemList = mutableListOf<SectionRecyclerAdapter.Item>()
 
         premiereList
             .groupBy { it.releaseDate?.let(::parsePremierDate) }
@@ -63,10 +64,10 @@ class ReleaseViewModel @Inject constructor(
             .map { (date, releases) ->
                 if (releases.isEmpty()) return@map
                 val formattedDate = date?.format(dateTimeFormatter)
-                recyclerItemList.add(ReleaseListItem.DateItem(formattedDate))
+                recyclerItemList.add(DateItem(formattedDate))
                 releases
                     ?.sortedBy(Release::id)
-                    ?.map(ReleaseListItem::ReleaseItem)
+                    ?.map(::ReleaseItem)
                     ?.let(recyclerItemList::addAll)
             }
 

@@ -8,6 +8,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import tech.dalapenko.core.basepresentation.view.sectionrecycler.SectionRecyclerAdapter
+import tech.dalapenko.core.basepresentation.view.sectionrecycler.SectionRecyclerItem
 import tech.dalapenko.data.premieres.model.Premiere
 import tech.dalapenko.data.premieres.repository.DataState
 import tech.dalapenko.data.premieres.repository.PremieresRepository
@@ -20,7 +22,7 @@ class PremieresViewModel @Inject constructor(
     private val premieresRepository: PremieresRepository
 ) : ViewModel() {
 
-    private val mutableContentStateFlow: MutableStateFlow<UiState<List<PremiereListItem>>> =
+    private val mutableContentStateFlow: MutableStateFlow<UiState<List<SectionRecyclerAdapter.Item>>> =
         MutableStateFlow(UiState.Loading)
     val contentStateFlow = mutableContentStateFlow.asStateFlow()
 
@@ -66,8 +68,8 @@ class PremieresViewModel @Inject constructor(
 
     private fun groupPremiereListByDate(
         premiereList: List<Premiere>
-    ): List<PremiereListItem> {
-        val recyclerItemList = mutableListOf<PremiereListItem>()
+    ): List<SectionRecyclerAdapter.Item> {
+        val recyclerItemList = mutableListOf<SectionRecyclerAdapter.Item>()
 
         premiereList
             .groupBy { it.premiereDate?.let(::parsePremierDate) }
@@ -75,10 +77,10 @@ class PremieresViewModel @Inject constructor(
             .map { (date, premieres) ->
                 if (premieres.isEmpty()) return@map
                 val formattedDate = date?.format(dateTimeFormatter)
-                recyclerItemList.add(PremiereListItem.DateItem(formattedDate))
+                recyclerItemList.add(DateItem(formattedDate))
                 premieres
                     ?.sortedBy(Premiere::id)
-                    ?.map(PremiereListItem::PremiereItem)
+                    ?.map(::PremiereItem)
                     ?.let(recyclerItemList::addAll)
             }
 

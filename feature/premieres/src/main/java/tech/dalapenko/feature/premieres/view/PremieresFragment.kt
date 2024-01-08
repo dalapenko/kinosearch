@@ -55,7 +55,7 @@ class PremieresFragment : Fragment(R.layout.premieres) {
                             binding.content.isVisible = true
                             binding.content.adapter = PremieresRecyclerAdapter(state.data) {
                                 val deeplink = NavDeepLinkRequest.Builder
-                                    .fromUri("kinosearch://filmdetails/${it.id}".toUri())
+                                    .fromUri("kinosearch://filmdetails/${it.premiere.id}".toUri())
                                     .build()
 
                                 val navOptions = NavOptions.Builder()

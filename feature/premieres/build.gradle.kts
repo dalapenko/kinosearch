@@ -41,6 +41,7 @@ android {
 
 dependencies {
     implementation(project(":data:premieres"))
+    implementation(project(":core:basepresentation"))
     implementation(libs.bundles.feature.premieres.implementation)
     kapt(libs.bundles.feature.premieres.kapt)
 }

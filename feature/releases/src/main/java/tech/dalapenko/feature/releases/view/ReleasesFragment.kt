@@ -54,7 +54,7 @@ class ReleasesFragment : Fragment(R.layout.releases) {
                             binding.content.isVisible = true
                             binding.content.adapter = ReleaseRecyclerAdapter(state.data) {
                                 val deeplink = NavDeepLinkRequest.Builder
-                                    .fromUri("kinosearch://filmdetails/${it.id}".toUri())
+                                    .fromUri("kinosearch://filmdetails/${it.release.id}".toUri())
                                     .build()
                                 findNavController().navigate(deeplink)
                             }
