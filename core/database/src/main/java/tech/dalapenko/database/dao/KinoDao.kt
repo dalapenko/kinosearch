@@ -2,8 +2,12 @@ package tech.dalapenko.database.dao
 
 import androidx.room.*
 import tech.dalapenko.database.dbo.CountryDbo
+import tech.dalapenko.database.dbo.FullPremiereDataDbo
 import tech.dalapenko.database.dbo.FullReleaseDataDbo
 import tech.dalapenko.database.dbo.GenreDbo
+import tech.dalapenko.database.dbo.PremiereGenreDbo
+import tech.dalapenko.database.dbo.PremiereCountryDbo
+import tech.dalapenko.database.dbo.PremiereDbo
 import tech.dalapenko.database.dbo.ReleaseCountryDbo
 import tech.dalapenko.database.dbo.ReleaseDbo
 import tech.dalapenko.database.dbo.ReleaseGenreDbo
@@ -15,6 +19,10 @@ abstract class KinoDao {
     @Query("SELECT * FROM releases WHERE releaseDate BETWEEN :fromDate AND :toData ORDER BY releaseDate DESC")
     abstract suspend fun getReleases(fromDate: Long, toData: Long): List<FullReleaseDataDbo>
 
+    @Transaction
+    @Query("SELECT * FROM premieres WHERE premiereDate BETWEEN :fromDate AND :toData ORDER BY premiereDate DESC")
+    abstract suspend fun getPremieres(fromDate: Long, toData: Long): List<FullPremiereDataDbo>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertReleases(releaseList: List<ReleaseDbo>)
 
@@ -23,6 +31,15 @@ abstract class KinoDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertReleaseCountries(releaseCountries: List<ReleaseCountryDbo>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract suspend fun insertPremiere(premiereList: List<PremiereDbo>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract suspend fun insertPremiereGenres(premiereGenres: List<PremiereGenreDbo>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract suspend fun insertPremiereCountries(premiereCountries: List<PremiereCountryDbo>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertCountries(countriesList: List<CountryDbo>)
@@ -52,5 +69,29 @@ abstract class KinoDao {
         insertCountries(releaseList.flatMap(FullReleaseDataDbo::countriesList))
         insertReleaseCountries(releaseGenresAndCountries.flatMap { it.first })
         insertReleaseGenres(releaseGenresAndCountries.flatMap { it.second })
+    }
+
+    @Transaction
+    open suspend fun insertFullPremiereData(
+        premiereList: List<FullPremiereDataDbo>
+    ) {
+        val premiereGenresAndCountries = premiereList.map { data ->
+            val premiereCountries = data.countriesList.map {
+                val (premierId, country) = data.premiere.id to it.name
+                PremiereCountryDbo(premierId, country)
+            }
+            val premierGenres = data.genresList.map {
+                val (premierId, genre) = data.premiere.id to it.name
+                PremiereGenreDbo(premierId, genre)
+            }
+
+            premiereCountries to premierGenres
+        }
+
+        insertPremiere(premiereList.map(FullPremiereDataDbo::premiere))
+        insertGenre(premiereList.flatMap(FullPremiereDataDbo::genresList))
+        insertCountries(premiereList.flatMap(FullPremiereDataDbo::countriesList))
+        insertPremiereCountries(premiereGenresAndCountries.flatMap { it.first })
+        insertPremiereGenres(premiereGenresAndCountries.flatMap { it.second })
     }
 }

@@ -24,7 +24,7 @@ import tech.dalapenko.network.dto.DigitalReleaseItemDto
 object ReleasesDataModule {
 
     @Provides
-    fun provideReleaseRepository(
+    fun provideReleasesRepository(
         remoteDataSource: RemoteDataSource,
         localDataSource: LocalDataSource
     ): ReleaseRepository {

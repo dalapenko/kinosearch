@@ -47,7 +47,7 @@ class ReleasesFragment : Fragment(R.layout.releases) {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.contentStateFlow.collect { state ->
                     when (state) {
-                        is UiState.CurrentData -> {
+                        is UiState.CurrentDataReady -> {
                             binding.cachedState.isVisible = false
                             binding.loader.isVisible = false
                             binding.error.isVisible = false
@@ -59,7 +59,7 @@ class ReleasesFragment : Fragment(R.layout.releases) {
                                 findNavController().navigate(deeplink)
                             }
                         }
-                        is UiState.CachedData -> {
+                        is UiState.CachedDataReady -> {
                             binding.cachedState.isVisible = true
                             binding.loader.isVisible = false
                             binding.error.isVisible = false
@@ -73,11 +73,13 @@ class ReleasesFragment : Fragment(R.layout.releases) {
                             }
                         }
                         is UiState.Loading -> {
+                            binding.cachedState.isVisible = false
                             binding.loader.isVisible = true
                             binding.content.isVisible = false
                             binding.error.isVisible = false
                         }
-                        is UiState.Empty -> {
+                        is UiState.Error -> {
+                            binding.cachedState.isVisible = false
                             binding.loader.isVisible = false
                             binding.content.isVisible = false
                             binding.error.isVisible = true

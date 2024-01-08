@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import tech.dalapenko.data.premieres.model.Premiere
 import tech.dalapenko.premieres.databinding.PremiereDateItemBinding
 import tech.dalapenko.premieres.databinding.PremiereItemBinding
-import tech.dalapenko.premieres.model.entity.Premiere
 import tech.dalapenko.premieres.viewmodel.PremiereListItem
 
 class PremieresRecyclerAdapter(

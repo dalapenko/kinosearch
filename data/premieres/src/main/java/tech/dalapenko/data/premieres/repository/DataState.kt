@@ -1,4 +1,4 @@
-package tech.dalapenko.data.releases.repository
+package tech.dalapenko.data.premieres.repository
 
 sealed interface DataState<out T> {
     class Cached<T>(val data: T) : DataState<T>

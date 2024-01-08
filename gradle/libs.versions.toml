@@ -178,6 +178,15 @@ data-releases-kapt = [
     "hilt-compiler"
 ]
 
+data-premieres-implementation = [
+    "hilt-core"
+]
+
+data-premieres-kapt = [
+    "hilt-compiler"
+]
+
+
 data-filmdetails-implementation = [
     "hilt-core"
 ]

@@ -8,23 +8,20 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import tech.dalapenko.network.adapter.onError
-import tech.dalapenko.network.adapter.onException
-import tech.dalapenko.network.adapter.onSuccess
-import tech.dalapenko.premieres.model.entity.Premiere
-import tech.dalapenko.premieres.model.repository.PremiereRepository
-import tech.dalapenko.premieres.view.State
+import tech.dalapenko.data.premieres.model.Premiere
+import tech.dalapenko.data.premieres.repository.DataState
+import tech.dalapenko.data.premieres.repository.PremieresRepository
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
 class PremieresViewModel @Inject constructor(
-    private val premiereRepository: PremiereRepository
+    private val premieresRepository: PremieresRepository
 ) : ViewModel() {
 
-    private val mutableContentStateFlow: MutableStateFlow<State<List<PremiereListItem>>> =
-        MutableStateFlow(State.Loading)
+    private val mutableContentStateFlow: MutableStateFlow<UiState<List<PremiereListItem>>> =
+        MutableStateFlow(UiState.Loading)
     val contentStateFlow = mutableContentStateFlow.asStateFlow()
 
     private val dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
@@ -35,19 +32,25 @@ class PremieresViewModel @Inject constructor(
     fun fetchContentList(month: String, year: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                mutableContentStateFlow.emit(State.Loading)
-                val releaseList = premiereRepository.getPremiereMovieList(month, year)
-
-                releaseList
-                    .onSuccess {
-                        val groupedReleaseList = groupPremiereListByDate(it)
-                        mutableContentStateFlow.emit(State.Success(groupedReleaseList))
-                    }
-                    .onError { _, _ ->
-                        mutableContentStateFlow.emit(State.Error)
-                    }
-                    .onException {
-                        mutableContentStateFlow.emit(State.Error)
+                mutableContentStateFlow.emit(UiState.Loading)
+                premieresRepository.getPremieresList(month, year)
+                    .collect { data ->
+                        when (data) {
+                            is DataState.Loading -> {
+                                mutableContentStateFlow.emit(UiState.Loading)
+                            }
+                            is DataState.FetchError -> {
+                                mutableContentStateFlow.emit(UiState.Error)
+                            }
+                            is DataState.Cached -> {
+                                val groupedReleaseList = groupPremiereListByDate(data.data)
+                                mutableContentStateFlow.emit(UiState.CachedDataReady(groupedReleaseList))
+                            }
+                            is DataState.Current -> {
+                                val groupedReleaseList = groupPremiereListByDate(data.data)
+                                mutableContentStateFlow.emit(UiState.CurrentDataReady(groupedReleaseList))
+                            }
+                        }
                     }
             }
         }
@@ -66,6 +69,7 @@ class PremieresViewModel @Inject constructor(
                 val formattedDate = date?.format(dateTimeFormatter)
                 recyclerItemList.add(PremiereListItem.DateItem(formattedDate))
                 premieres
+                    ?.sortedBy(Premiere::id)
                     ?.map(PremiereListItem::PremiereItem)
                     ?.let(recyclerItemList::addAll)
             }

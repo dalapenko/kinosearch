@@ -7,6 +7,9 @@ import androidx.room.RoomDatabase
 import tech.dalapenko.database.dao.KinoDao
 import tech.dalapenko.database.dbo.CountryDbo
 import tech.dalapenko.database.dbo.GenreDbo
+import tech.dalapenko.database.dbo.PremiereCountryDbo
+import tech.dalapenko.database.dbo.PremiereDbo
+import tech.dalapenko.database.dbo.PremiereGenreDbo
 import tech.dalapenko.database.dbo.ReleaseCountryDbo
 import tech.dalapenko.database.dbo.ReleaseDbo
 import tech.dalapenko.database.dbo.ReleaseGenreDbo
@@ -16,6 +19,9 @@ import tech.dalapenko.database.dbo.ReleaseGenreDbo
         ReleaseDbo::class,
         ReleaseCountryDbo::class,
         ReleaseGenreDbo::class,
+        PremiereDbo::class,
+        PremiereCountryDbo::class,
+        PremiereGenreDbo::class,
         CountryDbo::class,
         GenreDbo::class
     ],

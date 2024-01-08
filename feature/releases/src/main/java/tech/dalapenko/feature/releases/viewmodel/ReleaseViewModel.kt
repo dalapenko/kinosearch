@@ -32,18 +32,22 @@ class ReleaseViewModel @Inject constructor(
             mutableContentStateFlow.emit(UiState.Loading)
             releaseRepository.getReleasesList(month, year)
                 .collect { data ->
-                    if (data.data.isEmpty()) {
-                        mutableContentStateFlow.emit(UiState.Empty)
-                        return@collect
+                    when (data) {
+                        is DataState.Loading -> {
+                            mutableContentStateFlow.emit(UiState.Loading)
+                        }
+                        is DataState.FetchError -> {
+                            mutableContentStateFlow.emit(UiState.Error)
+                        }
+                        is DataState.Cached -> {
+                            val groupedReleaseList = groupReleaseListByDate(data.data)
+                            mutableContentStateFlow.emit(UiState.CachedDataReady(groupedReleaseList))
+                        }
+                        is DataState.Current -> {
+                            val groupedReleaseList = groupReleaseListByDate(data.data)
+                            mutableContentStateFlow.emit(UiState.CurrentDataReady(groupedReleaseList))
+                        }
                     }
-
-                    val groupedReleaseList = groupReleaseListByDate(data.data)
-                    val uiState = if (data is DataState.Current) {
-                        UiState.CurrentData(groupedReleaseList)
-                    } else {
-                        UiState.CachedData(groupedReleaseList)
-                    }
-                    mutableContentStateFlow.emit(uiState)
                 }
         }
     }

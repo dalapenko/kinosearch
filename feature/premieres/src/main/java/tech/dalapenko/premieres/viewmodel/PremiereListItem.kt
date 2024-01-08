@@ -1,6 +1,6 @@
 package tech.dalapenko.premieres.viewmodel
 
-import tech.dalapenko.premieres.model.entity.Premiere
+import tech.dalapenko.data.premieres.model.Premiere
 
 sealed class PremiereListItem(val type: Int) {
 

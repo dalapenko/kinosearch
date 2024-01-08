@@ -7,18 +7,16 @@ plugins {
 }
 
 android {
-    namespace = "tech.dalapenko.premieres"
+    namespace = "tech.dalapenko.data.premieres"
     compileSdk = 34
+
+    buildFeatures.buildConfig = true
 
     defaultConfig {
         minSdk = 27
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-    }
-
-    buildFeatures {
-        viewBinding = true
     }
 
     buildTypes {
@@ -40,7 +38,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":data:premieres"))
-    implementation(libs.bundles.feature.premieres.implementation)
-    kapt(libs.bundles.feature.premieres.kapt)
+    implementation(project(":data:core"))
+    implementation(libs.bundles.data.premieres.implementation)
+    kapt(libs.bundles.data.premieres.kapt)
 }

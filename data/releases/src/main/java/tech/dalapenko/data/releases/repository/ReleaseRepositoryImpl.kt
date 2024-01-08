@@ -17,15 +17,21 @@ internal class ReleaseRepositoryImpl(
         month: String,
         year: Int
     ): Flow<DataState<List<Release>>> = flow {
+        emit(DataState.Loading)
+
         val localReleaseList = localDataSource.getReleaseList(month, year)
 
-        emit(DataState.Cached(localReleaseList))
+        if (localReleaseList.isNotEmpty()) {
+            emit(DataState.Cached(localReleaseList))
+        }
 
-        val remoteReleaseList =
-            remoteDataSource.getReleaseList(month, year) as? NetworkResponse.Success ?: return@flow
+        val remoteReleaseList = remoteDataSource.getReleaseList(month, year) as? NetworkResponse.Success
 
-        emit(DataState.Current(remoteReleaseList.data))
-
-        localDataSource.insertReleaseList(remoteReleaseList.data)
+        if (remoteReleaseList is NetworkResponse.Success) {
+            emit(DataState.Current(remoteReleaseList.data))
+            localDataSource.insertReleaseList(remoteReleaseList.data)
+        } else {
+            if (localReleaseList.isEmpty()) emit(DataState.FetchError)
+        }
     }
 }
