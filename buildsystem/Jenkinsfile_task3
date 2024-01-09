@@ -1,0 +1,23 @@
+pipeline {
+    agent {
+        docker { image 'hwoaran/android-build:1.0.0' }
+    }
+
+    triggers {
+        cron('0 22 * * *')
+    }
+
+    stages {
+        stage('gradle-profiler') {
+            steps {
+                sh 'gradle-profiler --benchmark --project-dir . assembleDebug'
+            }
+        }
+    }
+
+    post {
+        success {
+            archiveArtifacts artifacts: 'profile-out/**/*.*'
+        }
+    }
+}

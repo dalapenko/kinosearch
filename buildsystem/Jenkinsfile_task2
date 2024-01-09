@@ -1,0 +1,73 @@
+pipeline {
+    agent {
+        docker { image 'hwoaran/android-build:1.0.0' }
+    }
+
+    parameters {
+        string(
+            name: "branch",
+            defaultValue: "development",
+            description: "Ветка"
+        )
+    }
+    stages {
+        boolean detektChecked = true
+        stage('detekt') {
+            steps {
+                try {
+                    sh './gradlew detekt'
+                } catch(Exception e) {
+                    archiveArtifacts artifacts: 'build/reports/detekt/**/*.*'
+                    sh 'exit 1'
+                }
+            }
+        }
+
+        stage("assembleRelease") {
+            when { branch pattern: "release/*", comparator: "REGEXP"}
+            steps {
+                withCredentials([
+                    file(credentialsId: 'otus_keystore', variable: 'otus_keystore_file'),
+                    file(credentialsId: 'otus_keystore_credentials', variable: 'otus_keystore_credentials_file')
+                ]) {
+                    sh './gradlew assembleRelease'
+                }
+            }
+        }
+        stage("assembleDebug") {
+            when { branch pattern: "release/*", comparator: "REGEXP"}
+            steps {
+                sh './gradlew assembleRelease'
+            }
+        }
+        stage("unitAndIntegrationTests") {
+            when { branch pattern: "release/*", comparator: "REGEXP"}
+            steps {
+               try {
+                    sh './gradlew test'
+                    sh './gradlew connectedAndroidTest'
+                } catch(Exception e) {
+                    archiveArtifacts artifacts: 'build/reports/unitTest/**/*.*'
+                    archiveArtifacts artifacts: 'build/reports/androidTest/**/*.*'
+                    sh 'exit 1'
+                }
+            }
+        }
+        stage("unitTests") {
+            when { branch pattern: "feature|bugfix/*", comparator: "REGEXP"}
+            steps {
+                try {
+                    sh './gradlew test'
+                } catch(Exception e) {
+                    archiveArtifacts artifacts: 'build/reports/unitTest/**/*.*'
+                    sh 'exit 1'
+                }
+            }
+        }
+        stage("deployToMavenLocal") {
+            steps {
+                sh './gradlew publishToMavenLocal'
+            }
+        }
+    }
+}
