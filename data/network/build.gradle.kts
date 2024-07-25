@@ -3,10 +3,11 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin)
     alias(libs.plugins.kapt)
+    alias(libs.plugins.hilt)
 }
 
 android {
-    namespace = "tech.dalapenko.core.basepresentation"
+    namespace = "tech.dalapenko.data.network"
     compileSdk = 34
 
     buildFeatures.buildConfig = true
@@ -37,8 +38,6 @@ android {
 }
 
 dependencies {
-
-    implementation(libs.bundles.core.basepresentation.implementation)
-    api(libs.bundles.core.basepresentation.api)
-    kapt(libs.bundles.core.basepresentation.kapt)
+    implementation(libs.bundles.data.network.implementation)
+    kapt(libs.bundles.data.network.kapt)
 }

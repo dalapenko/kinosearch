@@ -199,6 +199,14 @@ data-filmdetails-testImplementation = [
     "coroutine-test"
 ]
 
+data-network-implementation = [
+    "hilt-core"
+]
+
+data-network-kapt = [
+    "hilt-compiler"
+]
+
 core-network-implementation = [
     "retrofit-core",
     "retrofit-converter-json",
