@@ -1,8 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin)
-    alias(libs.plugins.kapt)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.kapt)
 }
 
 android {
