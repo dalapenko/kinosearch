@@ -41,6 +41,4 @@ class CustomSearchView @JvmOverloads constructor(
 
         fun onTextChange(text: CharSequence?)
     }
-
-
 }

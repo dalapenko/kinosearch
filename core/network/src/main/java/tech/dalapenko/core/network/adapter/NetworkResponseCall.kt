@@ -60,10 +60,10 @@ class NetworkResponseCall<T>(
             if (response.isSuccessful && responseBody != null) {
                 NetworkResponse.Success(responseBody)
             } else {
-                NetworkResponse.Error(response.code(), response.message())
+                NetworkResponse.Error(response.code(), response.message(), HttpException(response))
             }
         } catch (error: HttpException) {
-            NetworkResponse.Error(error.code(), error.message())
+            NetworkResponse.Error(error.code(), error.message(), error)
         } catch (throwable: Throwable) {
             NetworkResponse.Exception(throwable)
         }

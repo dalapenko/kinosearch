@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_message">Что-то пошло не так</string>
+    <string name="data_error_message">Что-то пошло не так</string>
+    <string name="network_error_message">Проблемы с соединением</string>
     <string name="cached_result_label">Результаты из кэша</string>
 </resources>

@@ -67,7 +67,7 @@
         android:id="@+id/error"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="@string/error_message"
+        android:text="@string/data_error_message"
         android:visibility="gone"
         android:gravity="center"
         app:layout_constraintTop_toTopOf="parent"

@@ -11,19 +11,20 @@ constraintlayout = "2.1.4"
 fragment = "1.8.2"
 material = "1.12.0"
 navigation = "2.7.7"
+paging="3.3.1"
 room = "2.6.1"
-retrofit = "2.9.0"
+retrofit = "2.11.0"
 retrofit-converterjson = "1.0.0"
 serialization-json = "1.6.2"
 okhttp = "4.12.0"
 glide = "4.16.0"
 glide-crop = "4.3.0"
 junit = "4.13.2"
-kaspresso = "1.5.3"
+kaspresso = "1.5.4"
 swiperefreshlayout = "1.1.0"
 junit-ktx = "1.2.1"
-coroutine-test = "1.7.3"
-mockk = "1.13.9"
+coroutine-test = "1.8.0"
+mockk = "1.13.11"
 
 [libraries]
 android-material = { module = "com.google.android.material:material", version.ref = "material" }
@@ -34,6 +35,7 @@ androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayo
 androidx-fragmentktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragment" }
 androidx-navigationfragmentktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
 androidx-navigationuiktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
+androidx-paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "paging" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
@@ -52,6 +54,7 @@ hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hil
 junit = { module = "junit:junit", version.ref = "junit" }
 kaspresso-core = { module = "com.kaspersky.android-components:kaspresso", version.ref = "kaspresso" }
 androidx-junit-ktx = { module = "androidx.test.ext:junit-ktx", version.ref = "junit-ktx" }
+androidx-paging-testing = { module = "androidx.paging:paging-testing", version.ref = "paging" }
 coroutine-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutine-test" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 
@@ -108,6 +111,7 @@ feature-search-implementation = [
     "androidx-appcompat",
     "androidx-fragmentktx",
     "androidx-navigationfragmentktx",
+    "androidx-paging-runtime",
     "hilt-core"
 ]
 
@@ -143,6 +147,7 @@ feature-releases-kapt = [
 ]
 
 data-search-implementation = [
+    "androidx-paging-runtime",
     "hilt-core"
 ]
 
@@ -153,7 +158,8 @@ data-search-kapt = [
 data-search-testImplementation = [
     "junit",
     "mockk",
-    "coroutine-test"
+    "coroutine-test",
+    "androidx-paging-testing"
 ]
 
 data-releases-implementation = [

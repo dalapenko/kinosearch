@@ -11,6 +11,7 @@ android {
     compileSdk = 34
 
     buildFeatures.buildConfig = true
+    testOptions.unitTests.isReturnDefaultValues = true
 
     defaultConfig {
         minSdk = 27

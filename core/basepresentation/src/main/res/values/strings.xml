@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_message">Something went wrong</string>
+    <string name="data_error_message">Something went wrong</string>
+    <string name="network_error_message">Network has a problem</string>
     <string name="cached_result_label">Cached result</string>
 </resources>

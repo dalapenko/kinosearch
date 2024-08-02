@@ -2,11 +2,19 @@ package tech.dalapenko.core.network.adapter
 
 sealed interface NetworkResponse<out T> {
 
-    class Success<T>(val data: T): NetworkResponse<T>
+    class Success<T>(
+        val data: T
+    ): NetworkResponse<T>
 
-    class Error(val code: Int, val message: String?): NetworkResponse<Nothing>
+    class Error(
+        val code: Int,
+        val message: String?,
+        val throwable: Throwable
+    ): NetworkResponse<Nothing>
 
-    class Exception(val throwable: Throwable): NetworkResponse<Nothing>
+    class Exception(
+        val throwable: Throwable
+    ): NetworkResponse<Nothing>
 }
 
 suspend fun <T> NetworkResponse<T>.onSuccess(
@@ -41,7 +49,7 @@ fun <IN, OUT> NetworkResponse<IN>.mapOnSuccess(
             NetworkResponse.Success(transformation.invoke(data))
         }
         is NetworkResponse.Error -> {
-            NetworkResponse.Error(code, message)
+            NetworkResponse.Error(code, message, throwable)
         }
         is NetworkResponse.Exception -> {
             NetworkResponse.Exception(throwable)

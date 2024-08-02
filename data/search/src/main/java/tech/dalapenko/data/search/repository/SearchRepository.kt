@@ -1,9 +1,12 @@
 package tech.dalapenko.data.search.repository
 
-import kotlinx.coroutines.flow.Flow
+import androidx.paging.Pager
 import tech.dalapenko.data.search.model.SearchResult
 
 interface SearchRepository {
 
-    suspend fun getSearchResult(keyword: String): Flow<DataState<List<SearchResult>>>
+    fun getSearchResultPager(
+        keyword: String,
+        initialLoadSize: Int
+    ): Pager<Int, SearchResult>
 }

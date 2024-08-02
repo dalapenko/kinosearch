@@ -16,10 +16,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import tech.dalapenko.core.basepresentation.navigate.Animation
 import tech.dalapenko.core.basepresentation.navigate.Deeplink
-import tech.dalapenko.data.search.model.SearchResult
 import tech.dalapenko.feature.search.R
 import tech.dalapenko.feature.search.databinding.SearchBinding
 import tech.dalapenko.feature.search.model.UiState
@@ -33,12 +33,14 @@ class SearchFragment : Fragment(R.layout.search) {
 
     private val viewModel: SearchViewModel by viewModels()
 
-    private val searchResultAdapter = SearchRecyclerAdapter { view, item ->
-        showInputMethod(view, false)
-        findNavController().navigate(
-            request = Deeplink.openFilmDetails(item.id),
-            navOptions = Animation.slideRight(R.id.search_root)
-        )
+    private val searchPagingAdapter by lazy(LazyThreadSafetyMode.NONE) {
+        SearchPagingAdapter { view, item ->
+            showInputMethod(view, false)
+            findNavController().navigate(
+                request = Deeplink.openFilmDetails(item.id),
+                navOptions = Animation.slideRight(R.id.search_root)
+            )
+        }
     }
 
     override fun onCreateView(
@@ -52,13 +54,7 @@ class SearchFragment : Fragment(R.layout.search) {
         }
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.viewStateFlow.collect { state ->
-                    when (state) {
-                        is UiState.Ready -> onDataReady(state.data)
-                        is UiState.Loading -> onDataLoading()
-                        is UiState.Error -> onDataError()
-                    }
-                }
+                viewModel.uiStateFlow.collectLatest(::onUiStateChange)
             }
         }
 
@@ -70,23 +66,14 @@ class SearchFragment : Fragment(R.layout.search) {
         _binding = null
     }
 
-    private fun onDataReady(searchResultList: List<SearchResult>) {
-        setContentVisible()
-        searchResultAdapter.setData(searchResultList)
-    }
+    private suspend fun onUiStateChange(uiState: UiState) = with(binding) {
+        content.isVisible = uiState.isNetworkAvailable
+        error.isVisible = !uiState.isNetworkAvailable
 
-    private fun onDataLoading() = with(binding) {
-        loader.isVisible = true
-        content.isVisible = false
-        error.isVisible = false
-    }
+        if (!uiState.isNetworkAvailable) return@with
 
-    private fun onDataError() = with(binding) {
-        loader.isVisible = false
-        content.isVisible = false
-        error.isVisible = true
+        uiState.pagingDataFlow.collectLatest(searchPagingAdapter::submitData)
     }
-
 
     private fun searchViewBiding(view: CustomSearchView) = with(view) {
         setOnQueryTextFocusChangeListener { view, hasFocus ->
@@ -95,21 +82,12 @@ class SearchFragment : Fragment(R.layout.search) {
         setOnBackButtonPressClickListener {
             parentFragmentManager.popBackStack()
         }
-        setOnQueryChangeListener {
-            viewModel.updateQuery(it)
-        }
+        setOnQueryChangeListener(viewModel::updateQuery)
     }
 
     private fun contentViewBinding(view: RecyclerView) = with(view) {
         layoutManager = LinearLayoutManager(context)
-        adapter = searchResultAdapter
-    }
-
-
-    private fun setContentVisible() = with(binding) {
-        loader.isVisible = false
-        error.isVisible = false
-        content.isVisible = true
+        adapter = searchPagingAdapter.withLoadStateFooter(SearchPagingLoadStateAdapter())
     }
 
     private fun showInputMethod(view: View, isShow: Boolean = true) {

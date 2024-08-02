@@ -3,17 +3,16 @@ package tech.dalapenko.feature.search.view
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import tech.dalapenko.core.basepresentation.utils.loadImage
 import tech.dalapenko.data.search.model.SearchResult
 import tech.dalapenko.feature.search.databinding.SearchItemBinding
 
-class SearchRecyclerAdapter(
+class SearchPagingAdapter(
     private val onItemClickListener: OnSearchResultClicked
-) : RecyclerView.Adapter<SearchRecyclerAdapter.SearchItemViewHolder>() {
-
-    private val recyclerItemList: MutableList<SearchResult> = mutableListOf()
+) : PagingDataAdapter<SearchResult, SearchPagingAdapter.SearchItemViewHolder>(SearchResultItemCallback) {
 
     class SearchItemViewHolder(val item: SearchItemBinding) : RecyclerView.ViewHolder(item.root)
 
@@ -25,12 +24,8 @@ class SearchRecyclerAdapter(
         )
     }
 
-    override fun getItemCount(): Int {
-        return recyclerItemList.size
-    }
-
     override fun onBindViewHolder(holder: SearchItemViewHolder, position: Int) {
-        val data = recyclerItemList[position]
+        val data = getItem(position) ?: return
 
         with(holder.item) {
             cover.loadImage(data.posterUrlPreview)
@@ -43,15 +38,17 @@ class SearchRecyclerAdapter(
         }
     }
 
-    fun setData(searchResultList: List<SearchResult>) {
-        val diffCallback = SearchResultDiffUtil(recyclerItemList, searchResultList)
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
-        recyclerItemList.clear()
-        recyclerItemList.addAll(searchResultList)
-        diffResult.dispatchUpdatesTo(this)
-    }
-
     fun interface OnSearchResultClicked {
         fun onItemClicked(view: View, item: SearchResult)
+    }
+}
+
+private object SearchResultItemCallback : DiffUtil.ItemCallback<SearchResult>() {
+    override fun areItemsTheSame(oldItem: SearchResult, newItem: SearchResult): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: SearchResult, newItem: SearchResult): Boolean {
+        return oldItem == newItem
     }
 }

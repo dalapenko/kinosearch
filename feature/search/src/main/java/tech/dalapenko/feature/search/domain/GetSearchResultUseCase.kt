@@ -1,27 +1,25 @@
 package tech.dalapenko.feature.search.domain
 
-import kotlinx.coroutines.flow.flow
-import tech.dalapenko.data.search.repository.DataState
+import androidx.paging.PagingData
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
+import tech.dalapenko.data.search.model.SearchResult
 import tech.dalapenko.data.search.repository.SearchRepository
-import tech.dalapenko.feature.search.model.UiState
 import javax.inject.Inject
 
 class GetSearchResultUseCase @Inject constructor(
-    private val searchRepository: SearchRepository
+    private val searchPagingRepository: SearchRepository
 ) {
 
-    suspend operator fun invoke(
+    operator fun invoke(
         keyword: String
-    ) = flow {
-        emit(UiState.Loading)
-        searchRepository.getSearchResult(keyword)
-            .collect { data ->
-                val uiState = when(data) {
-                    is DataState.Ready -> UiState.Ready(data.data)
-                    is DataState.Loading -> UiState.Loading
-                    is DataState.FetchError -> UiState.Error
-                }
-                emit(uiState)
-            }
+    ): Flow<PagingData<SearchResult>> {
+        return if (keyword.isBlank()) {
+            flowOf(PagingData.empty())
+        } else {
+            searchPagingRepository.getSearchResultPager(keyword, INITIAL_LOAD_SIZE).flow
+        }
     }
 }
+
+private const val INITIAL_LOAD_SIZE = 1

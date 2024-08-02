@@ -1,9 +1,10 @@
 package tech.dalapenko.feature.search.model
 
-sealed class UiState<out T> {
+import androidx.paging.PagingData
+import kotlinx.coroutines.flow.Flow
+import tech.dalapenko.data.search.model.SearchResult
 
-    class Ready<T>(val data: T) : UiState<T>()
-    data object Loading : UiState<Nothing>()
-    data object Error : UiState<Nothing>()
-
-}
+data class UiState(
+    val pagingDataFlow: Flow<PagingData<SearchResult>>,
+    var isNetworkAvailable: Boolean
+)

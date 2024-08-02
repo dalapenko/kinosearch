@@ -34,4 +34,8 @@ interface KinoApi {
     suspend fun getFilmById(
         @Path("id") id: Int
     ): NetworkResponse<FilmDto>
+
+    companion object {
+        const val MAX_PAGE_SIZE = 20
+    }
 }

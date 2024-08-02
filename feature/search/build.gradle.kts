@@ -41,6 +41,7 @@ android {
 
 dependencies {
     implementation(project(":data:search"))
+    implementation(project(":data:network"))
     implementation(project(":core:basepresentation"))
     implementation(libs.bundles.feature.search.implementation)
     kapt(libs.bundles.feature.search.kapt)

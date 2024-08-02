@@ -1,24 +1,24 @@
 package tech.dalapenko.data.search.repository
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import tech.dalapenko.data.search.datasource.remote.RemoteDataSource
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
 import tech.dalapenko.data.search.model.SearchResult
-import tech.dalapenko.core.network.adapter.NetworkResponse
+import tech.dalapenko.data.search.datasource.remote.PagingDataSource
 
 internal class SearchRepositoryImpl(
-    private val remoteDataSource: RemoteDataSource
+    private val pagingDataSourceFactory: PagingDataSource.Factory
 ) : SearchRepository {
 
-    override suspend fun getSearchResult(
-        keyword: String
-    ): Flow<DataState<List<SearchResult>>> = flow {
-
-        emit(DataState.Loading)
-
-        when (val searchResultResponse = remoteDataSource.getSearchResult(keyword)) {
-            is NetworkResponse.Success -> emit(DataState.Ready(searchResultResponse.data))
-            else -> emit(DataState.FetchError)
-        }
+    override fun getSearchResultPager(
+        keyword: String,
+        initialLoadSize: Int
+    ): Pager<Int, SearchResult> {
+        return Pager(
+            config = PagingConfig(pageSize = SEARCH_PAGE_SIZE, initialLoadSize = initialLoadSize),
+            initialKey = 1,
+            pagingSourceFactory = { pagingDataSourceFactory.create(keyword) }
+        )
     }
 }
+
+private const val SEARCH_PAGE_SIZE = 20
