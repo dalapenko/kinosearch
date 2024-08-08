@@ -73,11 +73,7 @@ class ReleasesFragment : Fragment(R.layout.releases) {
     }
 
     private suspend fun onUiStateChange(uiState: UiState) = with(binding) {
-        content.isVisible = uiState.isNetworkAvailable
         cachedState.isVisible = !uiState.isNetworkAvailable
-
-        if (!uiState.isNetworkAvailable) return@with
-
         uiState.pagingDataFlow.collect(releasesRecyclerAdapter::submitData)
     }
 
