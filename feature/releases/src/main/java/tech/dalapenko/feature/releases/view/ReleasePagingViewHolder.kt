@@ -9,11 +9,11 @@ sealed class ReleasePagingViewHolder(
     val item: ViewBinding
 ) : RecyclerView.ViewHolder(item.root) {
 
-    class ReleaseViewHolder(
+    class ReleaseItemViewHolder(
         item: ReleaseItemBinding
     ) : ReleasePagingViewHolder(item)
 
-    class DateSeparatorViewHolder(
+    class DateSeparatorItemViewHolder(
         item: ReleaseDateSeparatorItemBinding
     ) : ReleasePagingViewHolder(item)
 }

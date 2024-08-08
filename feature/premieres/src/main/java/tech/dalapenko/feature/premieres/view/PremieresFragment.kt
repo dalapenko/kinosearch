@@ -18,11 +18,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import tech.dalapenko.core.basepresentation.navigate.Animation
 import tech.dalapenko.core.basepresentation.navigate.Deeplink
-import tech.dalapenko.core.basepresentation.view.sectionrecycler.SectionRecyclerAdapter
+import tech.dalapenko.feature.premieres.model.PremiereRecyclerItem
+import tech.dalapenko.feature.premieres.model.UiState
+import tech.dalapenko.feature.premieres.viewmodel.PremieresViewModel
 import tech.dalapenko.premieres.R
 import tech.dalapenko.premieres.databinding.PremieresBinding
-import tech.dalapenko.feature.premieres.viewmodel.PremieresViewModel
-import tech.dalapenko.feature.premieres.model.UiState
 import java.time.LocalDate
 
 @AndroidEntryPoint
@@ -74,7 +74,7 @@ class PremieresFragment : Fragment(R.layout.premieres) {
         _binding = null
     }
 
-    private fun onDataReady(premiereData: List<SectionRecyclerAdapter.Item>, isCachedData: Boolean) {
+    private fun onDataReady(premiereData: List<PremiereRecyclerItem>, isCachedData: Boolean) {
         setContentVisible()
         setCachedData(isCachedData)
         premieresRecyclerAdapter.setData(premiereData)

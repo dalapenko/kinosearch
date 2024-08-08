@@ -1,12 +1,11 @@
 package tech.dalapenko.feature.premieres.domain
 
 import kotlinx.coroutines.flow.flow
-import tech.dalapenko.core.basepresentation.view.sectionrecycler.SectionRecyclerAdapter
 import tech.dalapenko.data.premieres.model.Premiere
 import tech.dalapenko.data.premieres.repository.DataState
 import tech.dalapenko.data.premieres.repository.PremieresRepository
-import tech.dalapenko.feature.premieres.model.DateItem
-import tech.dalapenko.feature.premieres.model.PremiereItem
+import tech.dalapenko.feature.premieres.model.PremiereRecyclerItem
+import tech.dalapenko.feature.premieres.model.PremiereRecyclerItem.PremiereItem
 import tech.dalapenko.feature.premieres.model.UiState
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -21,7 +20,7 @@ class GetPremieresUseCase @Inject constructor(
         return@Comparator current?.compareTo(other) ?: -1
     }
 
-    suspend operator fun invoke(
+    operator fun invoke(
         month: String, year: Int
     ) = flow {
         emit(UiState.Loading)
@@ -31,13 +30,16 @@ class GetPremieresUseCase @Inject constructor(
                     is DataState.Loading -> {
                         emit(UiState.Loading)
                     }
+
                     is DataState.FetchError -> {
                         emit(UiState.Error)
                     }
+
                     is DataState.Cached -> {
                         val groupedReleaseList = groupPremiereListByDate(data.data)
                         emit(UiState.CachedDataReady(groupedReleaseList))
                     }
+
                     is DataState.Current -> {
                         val groupedReleaseList = groupPremiereListByDate(data.data)
                         emit(UiState.CurrentDataReady(groupedReleaseList))
@@ -48,8 +50,8 @@ class GetPremieresUseCase @Inject constructor(
 
     private fun groupPremiereListByDate(
         premiereList: List<Premiere>
-    ): List<SectionRecyclerAdapter.Item> {
-        val recyclerItemList = mutableListOf<SectionRecyclerAdapter.Item>()
+    ): List<PremiereRecyclerItem> {
+        val recyclerItemList = mutableListOf<PremiereRecyclerItem>()
 
         premiereList
             .groupBy { it.premiereDate?.let(::parsePremierDate) }
@@ -57,7 +59,7 @@ class GetPremieresUseCase @Inject constructor(
             .map { (date, premieres) ->
                 if (premieres.isEmpty()) return@map
                 val formattedDate = date?.format(dateTimeFormatter)
-                recyclerItemList.add(DateItem(formattedDate))
+                recyclerItemList.add(PremiereRecyclerItem.DateSeparatorItem(formattedDate))
                 premieres
                     ?.sortedBy(Premiere::id)
                     ?.map(::PremiereItem)

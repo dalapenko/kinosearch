@@ -6,8 +6,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import tech.dalapenko.core.basepresentation.view.sectionrecycler.SectionRecyclerAdapter
 import tech.dalapenko.feature.premieres.domain.GetPremieresUseCase
+import tech.dalapenko.feature.premieres.model.PremiereRecyclerItem
 import tech.dalapenko.feature.premieres.model.UiState
 import javax.inject.Inject
 
@@ -16,7 +16,7 @@ class PremieresViewModel @Inject constructor(
     private val getReleasesUseCase: GetPremieresUseCase
 ) : ViewModel() {
 
-    private val mutableContentStateFlow: MutableStateFlow<UiState<List<SectionRecyclerAdapter.Item>>> =
+    private val mutableContentStateFlow: MutableStateFlow<UiState<List<PremiereRecyclerItem>>> =
         MutableStateFlow(UiState.Loading)
     val contentStateFlow = mutableContentStateFlow.asStateFlow()
 

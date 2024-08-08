@@ -9,8 +9,8 @@ import tech.dalapenko.feature.releases.databinding.ReleaseItemBinding
 import tech.dalapenko.feature.releases.model.ReleasePagingItem
 import tech.dalapenko.feature.releases.model.ReleasePagingItem.DateSeparatorItem
 import tech.dalapenko.feature.releases.model.ReleasePagingItem.ReleaseItem
-import tech.dalapenko.feature.releases.view.ReleasePagingViewHolder.DateSeparatorViewHolder
-import tech.dalapenko.feature.releases.view.ReleasePagingViewHolder.ReleaseViewHolder
+import tech.dalapenko.feature.releases.view.ReleasePagingViewHolder.DateSeparatorItemViewHolder
+import tech.dalapenko.feature.releases.view.ReleasePagingViewHolder.ReleaseItemViewHolder
 
 class ReleasePagingAdapter(
     private val onReleaseItemClickListener: ReleasePagingItem.OnItemClicked<ReleaseItem>
@@ -31,18 +31,18 @@ class ReleasePagingAdapter(
         val data = getItem(position) ?: return
 
         when {
-            holder is ReleaseViewHolder && data is ReleaseItem -> {
+            holder is ReleaseItemViewHolder && data is ReleaseItem -> {
                 onBindReleaseViewHolder(holder, data)
             }
 
-            holder is DateSeparatorViewHolder && data is DateSeparatorItem -> {
+            holder is DateSeparatorItemViewHolder && data is DateSeparatorItem -> {
                 onBindDateSeparatorViewHolder(holder, data)
             }
         }
     }
 
     private fun onBindReleaseViewHolder(
-        holder: ReleaseViewHolder,
+        holder: ReleaseItemViewHolder,
         releaseItem: ReleaseItem
     ) {
         val data = releaseItem.release
@@ -57,7 +57,7 @@ class ReleasePagingAdapter(
     }
 
     private fun onBindDateSeparatorViewHolder(
-        holder: DateSeparatorViewHolder,
+        holder: DateSeparatorItemViewHolder,
         dateSeparatorItem: DateSeparatorItem
     ) {
         (holder.item as ReleaseDateSeparatorItemBinding).groupDate.text = dateSeparatorItem.date
@@ -65,8 +65,8 @@ class ReleasePagingAdapter(
 
     private fun onCreateReleaseViewHolder(
         parent: ViewGroup
-    ): ReleaseViewHolder {
-        return ReleaseViewHolder(
+    ): ReleaseItemViewHolder {
+        return ReleaseItemViewHolder(
             ReleaseItemBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
@@ -75,8 +75,8 @@ class ReleasePagingAdapter(
 
     private fun onCreateDateSeparatorViewHolder(
         parent: ViewGroup
-    ): DateSeparatorViewHolder {
-        return DateSeparatorViewHolder(
+    ): DateSeparatorItemViewHolder {
+        return DateSeparatorItemViewHolder(
             ReleaseDateSeparatorItemBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
