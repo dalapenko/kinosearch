@@ -15,6 +15,7 @@
 - Hilt
 - Retrofit
 - Room
+- Paging3
 - Kotlin Serialization
 
 ## Схема модулей
