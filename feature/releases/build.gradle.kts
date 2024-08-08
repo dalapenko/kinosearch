@@ -42,6 +42,7 @@ android {
 dependencies {
     implementation(project(":core:basepresentation"))
     implementation(project(":data:releases"))
+    implementation(project(":data:network"))
     implementation(libs.bundles.feature.releases.implementation)
     kapt(libs.bundles.feature.releases.kapt)
 }

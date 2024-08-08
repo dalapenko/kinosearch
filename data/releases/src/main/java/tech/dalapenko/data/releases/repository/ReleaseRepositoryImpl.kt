@@ -1,37 +1,33 @@
 package tech.dalapenko.data.releases.repository
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import tech.dalapenko.data.releases.datasource.local.LocalDataSource
-import tech.dalapenko.data.releases.datasource.remote.RemoteDataSource
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import tech.dalapenko.data.releases.datasource.ReleasesRemoteMediator
+import tech.dalapenko.data.releases.datasource.local.PagingDataSource
 import tech.dalapenko.data.releases.model.Release
-import tech.dalapenko.core.network.adapter.NetworkResponse
-import javax.inject.Inject
 
-internal class ReleaseRepositoryImpl(
-    private val remoteDataSource: RemoteDataSource,
-    private val localDataSource: LocalDataSource
+@ExperimentalPagingApi
+class ReleaseRepositoryImpl(
+    private val pagingDataSourceFactory: PagingDataSource.Factory,
+    private val releaseRemoteMediatorFactory: ReleasesRemoteMediator.Factory
 ) : ReleaseRepository {
 
-    override suspend fun getReleasesList(
-        month: String,
-        year: Int
-    ): Flow<DataState<List<Release>>> = flow {
-        emit(DataState.Loading)
-
-        val localReleaseList = localDataSource.getReleaseList(month, year)
-
-        if (localReleaseList.isNotEmpty()) {
-            emit(DataState.Cached(localReleaseList))
-        }
-
-        val remoteReleaseList = remoteDataSource.getReleaseList(month, year) as? NetworkResponse.Success
-
-        if (remoteReleaseList is NetworkResponse.Success) {
-            emit(DataState.Current(remoteReleaseList.data))
-            localDataSource.insertReleaseList(remoteReleaseList.data)
-        } else {
-            if (localReleaseList.isEmpty()) emit(DataState.FetchError)
-        }
+    override fun getReleasePager(
+        year: Int,
+        month: String
+    ): Pager<Int, Release> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = RELEASE_PAGE_SIZE,
+                initialLoadSize = INITIAL_LOAD_SIZE,
+                enablePlaceholders = true
+            ),
+            remoteMediator = releaseRemoteMediatorFactory.create(year, month),
+            pagingSourceFactory = { pagingDataSourceFactory.create() }
+        )
     }
 }
+
+private const val RELEASE_PAGE_SIZE = 20
+private const val INITIAL_LOAD_SIZE = 19

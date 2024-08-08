@@ -8,12 +8,11 @@ import androidx.room.Junction
 import androidx.room.PrimaryKey
 import androidx.room.Relation
 import androidx.room.TypeConverters
+import tech.dalapenko.core.database.Table
 import tech.dalapenko.core.database.converter.DateConverter
 import java.util.Date
 
-@Entity(
-    tableName = "releases"
-)
+@Entity(tableName = Table.RELEASES)
 @TypeConverters(DateConverter::class)
 data class ReleaseDbo(
     @PrimaryKey @ColumnInfo(name="release_id") val id: Int,
@@ -31,13 +30,14 @@ data class ReleaseDbo(
 )
 
 @Entity(
-    tableName = "releases_countries",
+    tableName = Table.RELEASES_COUNTRIES,
     primaryKeys = ["release_id", "country"],
     foreignKeys = [
         ForeignKey(
             entity = ReleaseDbo::class,
             parentColumns = ["release_id"],
-            childColumns = ["release_id"]
+            childColumns = ["release_id"],
+            onDelete = ForeignKey.CASCADE
         ),
         ForeignKey(
             entity = CountryDbo::class,
@@ -52,13 +52,14 @@ data class ReleaseCountryDbo(
 )
 
 @Entity(
-    tableName = "releases_genres",
+    tableName = Table.RELEASES_GENRES,
     primaryKeys = ["release_id", "genre"],
     foreignKeys = [
         ForeignKey(
             entity = ReleaseDbo::class,
             parentColumns = ["release_id"],
-            childColumns = ["release_id"]
+            childColumns = ["release_id"],
+            onDelete = ForeignKey.CASCADE
         ),
         ForeignKey(
             entity = GenreDbo::class,

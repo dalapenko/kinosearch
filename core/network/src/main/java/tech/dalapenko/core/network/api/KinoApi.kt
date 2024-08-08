@@ -17,7 +17,7 @@ interface KinoApi {
         @Query("month") month: String
     ): NetworkResponse<PremiereDto>
 
-    @GET("v2.1/films/releases")
+    @GET("https://e59de59e-68cb-4bcd-b345-5e2e18134358.mock.pstmn.io/v2.1/films/releases")
     suspend fun getReleases(
         @Query("year") year: Int,
         @Query("month") month: String,

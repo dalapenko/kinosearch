@@ -39,6 +39,7 @@ androidx-paging-runtime = { module = "androidx.paging:paging-runtime", version.r
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+androidx-room-paging = { module = "androidx.room:room-paging", version.ref = "room" }
 androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
 retrofit-core = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-converter-json = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "retrofit-converterjson" }
@@ -139,6 +140,7 @@ feature-releases-implementation = [
     "androidx-fragmentktx",
     "androidx-swiperefreshlayout",
     "androidx-navigationfragmentktx",
+    "androidx-paging-runtime",
     "hilt-core",
 ]
 
@@ -163,6 +165,8 @@ data-search-testImplementation = [
 ]
 
 data-releases-implementation = [
+    "androidx-paging-runtime",
+    "androidx-room-runtime",
     "hilt-core"
 ]
 
@@ -207,11 +211,14 @@ data-network-kapt = [
 ]
 
 core-network-implementation = [
-    "retrofit-core",
     "retrofit-converter-json",
     "serialization-json",
     "okhttp-logging",
     "hilt-core"
+]
+
+core-network-api = [
+    "retrofit-core"
 ]
 
 core-network-kapt = [
@@ -221,6 +228,7 @@ core-network-kapt = [
 core-database-implementation = [
     "androidx-room-ktx",
     "androidx-room-runtime",
+    "androidx-room-paging",
     "serialization-json",
     "hilt-core"
 ]

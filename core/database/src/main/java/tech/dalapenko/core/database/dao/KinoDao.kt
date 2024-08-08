@@ -16,8 +16,11 @@ import tech.dalapenko.core.database.dbo.ReleaseGenreDbo
 abstract class KinoDao {
 
     @Transaction
-    @Query("SELECT * FROM releases WHERE releaseDate BETWEEN :fromDate AND :toData ORDER BY releaseDate DESC")
-    abstract suspend fun getReleases(fromDate: Long, toData: Long): List<FullReleaseDataDbo>
+    @Query("SELECT * FROM releases ORDER BY releaseDate ASC LIMIT :limit OFFSET :offset")
+    abstract suspend fun getReleasesPagedList(limit: Int, offset: Int): List<FullReleaseDataDbo>
+
+    @Query("SELECT COUNT(*) FROM releases")
+    abstract suspend fun getReleasesItemCount(): Int
 
     @Transaction
     @Query("SELECT * FROM premieres WHERE premiereDate BETWEEN :fromDate AND :toData ORDER BY premiereDate DESC")
@@ -46,6 +49,9 @@ abstract class KinoDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertGenre(genresList: List<GenreDbo>)
+
+    @Query("DELETE FROM releases")
+    abstract suspend fun clearAllReleases()
 
     @Transaction
     open suspend fun insertFullReleaseData(
@@ -93,5 +99,11 @@ abstract class KinoDao {
         insertCountries(premiereList.flatMap(FullPremiereDataDbo::countriesList))
         insertPremiereCountries(premiereGenresAndCountries.flatMap { it.first })
         insertPremiereGenres(premiereGenresAndCountries.flatMap { it.second })
+    }
+
+    @Transaction
+    open suspend fun clearAndInsertFullReleaseData(releaseList: List<FullReleaseDataDbo>) {
+        clearAllReleases()
+        insertFullReleaseData(releaseList)
     }
 }

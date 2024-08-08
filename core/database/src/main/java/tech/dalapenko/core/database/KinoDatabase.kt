@@ -43,7 +43,7 @@ abstract class KinoDatabase : RoomDatabase() {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         KinoDatabase::class.java,
-                        "kinosearch_database"
+                        DATABASE_NAME
                     ).build()
                 }
             }
@@ -52,3 +52,5 @@ abstract class KinoDatabase : RoomDatabase() {
         }
     }
 }
+
+private const val DATABASE_NAME = "kinosearch_database"

@@ -45,6 +45,7 @@ android {
 
 dependencies {
 
+    api(libs.bundles.core.network.api)
     implementation(libs.bundles.core.network.implementation)
     kapt(libs.bundles.core.network.kapt)
 }

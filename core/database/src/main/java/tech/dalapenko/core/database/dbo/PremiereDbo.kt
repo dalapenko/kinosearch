@@ -8,12 +8,11 @@ import androidx.room.Junction
 import androidx.room.PrimaryKey
 import androidx.room.Relation
 import androidx.room.TypeConverters
+import tech.dalapenko.core.database.Table
 import tech.dalapenko.core.database.converter.DateConverter
 import java.util.Date
 
-@Entity(
-    tableName = "premieres"
-)
+@Entity(tableName = Table.PREMIERES)
 @TypeConverters(DateConverter::class)
 data class PremiereDbo(
     @PrimaryKey @ColumnInfo(name="premiere_id") val id: Int,
@@ -27,7 +26,7 @@ data class PremiereDbo(
 )
 
 @Entity(
-    tableName = "premieres_countries",
+    tableName = Table.PREMIERES_COUNTRIES,
     primaryKeys = ["premiere_id", "country"],
     foreignKeys = [
         ForeignKey(
@@ -48,7 +47,7 @@ data class PremiereCountryDbo(
 )
 
 @Entity(
-    tableName = "premieres_genres",
+    tableName = Table.PREMIERES_GENRES,
     primaryKeys = ["premiere_id", "genre"],
     foreignKeys = [
         ForeignKey(
